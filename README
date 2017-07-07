@@ -1,0 +1,106 @@
+This is your new Play application
+=================================
+
+This file will be packaged with your application when using `activator dist`.
+
+There are several demonstration files available in this template.
+
+Controllers
+===========
+
+- HomeController.scala:
+
+  Shows how to handle simple HTTP requests.
+
+- AsyncController.scala:
+
+  Shows how to do asynchronous programming when handling a request.
+
+- CountController.scala:
+
+  Shows how to inject a component into a controller and use the component when
+  handling requests.
+
+Components
+==========
+
+- Module.scala:
+
+  Shows how to use Guice to bind all the components needed by your application.
+
+- Counter.scala:
+
+  An example of a component that contains state, in this case a simple counter.
+
+- ApplicationTimer.scala:
+
+  An example of a component that starts when the application starts and stops
+  when the application stops.
+
+Filters
+=======
+
+- Filters.scala:
+
+  Creates the list of HTTP filters used by your application.
+
+- ExampleFilter.scala
+
+  A simple filter that adds a header to every response.
+
+Request Reference
+=================
+
+- http://localhost:9000/count
+
+
+Configuring debugging
+=====================
+
+start the following sbt line in linux/mac console/terminal:
+
+sbt -jvm-debug 5005
+
+
+Extensiones en Chrome para peticiones HTTP
+==========================================
+
+HTTP Spy -> esta instalada en Chrome, solo hay que hablitar cuando queramos probar !!
+
+references:
+https://www.mschweighauser.com/playframework-asset-pipeline/
+https://github.com/sbt/sbt-web/blob/master/README.md
+
+
+doubt:
+======
+
+when run from sbt, fix it
+Warning: node.js detection failed, sbt will use the Rhino based Trireme JavaScript engine instead to run JavaScript assets compilation, which in some cases may be orders of magnitude slower than using node.js.
+
+
+
+Some ADVICES:
+
+- Divide always your projects in modules.
+- Enable the plugins that every individual project needs and then add it to the project roots.
+- You should have a principal rout file and then make a mapping the the route file of every module.
+
+
+
+Tratamiendo de la Request:
+
+- Hemos hecho un wrapper para tratar los posibles errores en el momento de parsear el JSON
+- La validacion de las peticiones será hecha en los actions builders
+- En el controller que trate el action en cuestion de tenemos que tratar el action y ademas una
+  funcion que reciba la request procece lo que se le mande y luego haga un response indicando
+  también en un json la efectividad de la operación.
+
+
+Package info:
+
+Test package:
+
+Guide for package styles:
+
+http://www.scalatest.org/user_guide/selecting_a_style
