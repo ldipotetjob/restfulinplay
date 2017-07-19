@@ -1,0 +1,15 @@
+package com.ldg.model
+
+=====================================================================
+
+This package contain the data model. Here
+
+
+
+
+
+
+===========================CONNECTION================================
+
+This module is relate for connection:
+

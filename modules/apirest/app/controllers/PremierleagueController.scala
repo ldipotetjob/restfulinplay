@@ -2,11 +2,11 @@ package controllers
 
 import javax.inject._
 
-import play.api.libs.json.{JsValue, Json, Reads}
+import play.api.libs.json.{JsArray, JsValue, Json, Reads}
 import play.api.mvc.AnyContent
 import utilities.MyOwnConversions._
 import utilities.ImplicitConvertions._
-import utilities.{BaseController, DefaultControllerComponents, Place}
+import utilities.{UtilitiesForCSV, BaseController, DefaultControllerComponents, Place}
 import com.ldg.model._
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -16,17 +16,17 @@ class PremierleagueController @Inject()(action: DefaultControllerComponents) ext
 
   // some curl templates for testing POST request:
   /*
-     for JsonAction[Match]:
-     curl -d '{"name":"Nuthanger Farm","location":{"lat" : 51.244031,"long" : -1.263224},"residents" : [{"name" : "Fiver","age" : 4,"role" : null},{"name" : "Bigwig","age" : 6, "role" : "Owsla"}]}' -H "Content-Type: application/json" http://localhost:9000/apirest/newsave ; echo
 
-     for
+    (this Match don't has indexNumber operations, is a fake POST)
+    for JsonAction[Match]:
+    curl -d '{"awayTeamGoals":2,"awayGoalsplayer":{"Mark Walters":["43''"],"Ronnie Rosenthal":["84''"]},"matchAwayteam":"Liverpool","matchDate":"716911200000","homeTeamGoal":4,"homeGoalsplayer":{"Dean Saunders":["44''","66''"],"Garry Parker":["78''"]},"matchHometeam":"Aston Villa","season":"MW 6"}' -H "Content-Type: application/json" http://localhost:9000/apirest/premier/match ; echo
+
   */
   /**
     * Best way, using a wrapper for a action that process a POST with a JSON in the request.
     *
     * @see utilities.DefaultControllerComponents.jsonActionBuilder a reference to JsonActionBuilder
     *      a builder of actions that process POST request
-    *
     * @return specific Result when every things is Ok so we send the status and the comment with the specific
     *         json that show the result
     */
@@ -38,6 +38,15 @@ class PremierleagueController @Inject()(action: DefaultControllerComponents) ext
     //The result content type is automatically inferred from the Scala value that you specify as the response body.
     Ok(Json.obj("status" ->"OK", "message" -> (jsonMatchObject) ))
   }
+
+
+
+def getMatchGame = action.defaultActionBuilder { request =>
+    //request.getQueryString()
+
+  val arrayResult = UtilitiesForCSV("football.txt")
+  Ok(Json.obj("status" ->"OK", "message" -> (JsArray(arrayResult))))
+}
 
   /**
     * The simplest way for process a request, in this case we call a default action builder
@@ -64,13 +73,16 @@ class PremierleagueController @Inject()(action: DefaultControllerComponents) ext
   }
 
   /**
+    *
+    * for JsonAction[Place]:
+    * curl -d '{"name":"Nuthanger Farm","location":{"lat" : 51.244031,"long" : -1.263224},"residents" : [{"name" : "Fiver","age" : 4,"role" : null},{"name" : "Bigwig","age" : 6, "role" : "Owsla"}]}' -H "Content-Type: application/json" http://localhost:9000/apirest/newsave ; echo
+    *
     * A way for process a Json request, using a base action, in this case we call a json action builder
     * and use the specific BodyParser validator for the JSON, if something goes wrong the
     * same Body parser Validator throw the BadRequest in other case an OK (200) of Response is get back
     *
     * @see utilities.DefaultControllerComponents.jsonActionBuilder a reference to JsonActionBuilder
     *      a builder of actions that process POST request
-    *
     * @return Result (Ok/BadRequest)
     */
 

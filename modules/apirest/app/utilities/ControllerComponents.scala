@@ -5,12 +5,15 @@ import play.api.libs.json.{JsError, Json}
 import play.api.mvc._
 import javax.inject._
 import play.api.Logger
-import play.mvc.Http.Status
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 
 /**
   * Created by ldipotet on 26/6/17.
+  *
+  * We import the default global execution context for execute tasks submitted to them.
+  * It's essential for the Future.apply method. We encourage You to define your own execution contexts and use
+  * them with Future, for now it is sufficient to know that you can import the default execution context as shown .
   *
   * It model a component needed for every controller instantiated in the project
   *
@@ -29,6 +32,10 @@ sealed trait ControllerComponents {
 
   /**
     * Action builder for simple Request.
+    *
+    * We only process request with content-type
+    * Content-type specifications: https://tools.ietf.org/html/rfc7231#section-3.1.1.5
+    *
     */
 
   class DefaultActionBuilder extends ActionBuilder[Request] {
