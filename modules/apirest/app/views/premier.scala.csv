@@ -1,0 +1,6 @@
+@******************************************
+* Template for comma separate value files *
+******************************************@
+
+@(matchs: List[Player])"foo","bar"@for(player <- players) {
+"@player.playerName","@player.teamName"}

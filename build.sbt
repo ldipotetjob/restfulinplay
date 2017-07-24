@@ -10,6 +10,7 @@ scalaVersion := "2.11.7"
   * of the data model.
   *
   */
+
 lazy val restfulapi = (project in file("modules/apirest")).enablePlugins(PlayScala).dependsOn(util).settings(scalaVersion:="2.11.7",
   libraryDependencies ++= Seq(
     cache,
@@ -18,10 +19,7 @@ lazy val restfulapi = (project in file("modules/apirest")).enablePlugins(PlaySca
 )
 
 lazy val util = (project in file("modules/dbmodule")).settings(scalaVersion:="2.11.7")
-/*
-libraryDependencies ++= Seq(
-  jdbc,
-  cache,
-  ws,"com.typesafe.play" %% "play" % "2.3.10",
-  "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.1" % Test
-)*/
+
+TwirlKeys.templateFormats += ("csv" -> "views.CsvFormat")
+
+

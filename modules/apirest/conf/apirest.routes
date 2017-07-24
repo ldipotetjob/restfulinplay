@@ -19,6 +19,8 @@ POST     /premier/match             controllers.PremierleagueController.insertMa
 
 GET      /premier/matchs            controllers.PremierleagueController.getMatchGame
 
+GET     /assets/*file            controllers.Assets.versioned(path="/public", file: Asset)
 
+GET     /records                    controllers.HomeController.records
 
 

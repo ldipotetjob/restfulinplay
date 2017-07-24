@@ -1,0 +1,6 @@
+This is NOT a package BUT require some explanations:
+
+Files involved:
+
+regex.pgn
+football.txt

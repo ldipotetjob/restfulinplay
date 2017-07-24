@@ -2,11 +2,12 @@ package controllers
 
 import javax.inject._
 import akka.util.ByteString
+import com.ldg.model.SamplePlayer
 import play.api._
 import play.api.http.HttpEntity
 import play.api.libs.json._
 import play.api.mvc._
-import utilities.{Resident, Location, Place}
+import utilities.{Resident, Location, Place,Record}
 import utilities.MyOwnConversions._
 
 /**
@@ -61,6 +62,17 @@ class HomeController @Inject() extends Controller {
       Unauthorized("Oops, you are not connected")
     }
   }
+
+  /*
+  def records = Action {
+    Ok(views.csv.premier(SamplePlayer.samplePlayers))
+  }
+*/
+  def records = Action {
+    Ok(views.csv.records(Record.sampleRecords))
+  }
+
+
 
   /**
     * Action NOT registered in the route file. It's just for show how modify

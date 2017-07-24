@@ -4,3 +4,6 @@ Files involved:
 
 regex.pgn
 football.txt
+
+
+https://stackoverflow.com/questions/37418568/how-to-properly-serve-csv-data-with-play-framework
