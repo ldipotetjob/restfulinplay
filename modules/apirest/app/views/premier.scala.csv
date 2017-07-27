@@ -2,5 +2,5 @@
 * Template for comma separate value files *
 ******************************************@
 
-@(matchs: List[Player])"foo","bar"@for(player <- players) {
+@(players: List[com.ldg.model.Player])"foo","bar"@for(player <- players) {
 "@player.playerName","@player.teamName"}

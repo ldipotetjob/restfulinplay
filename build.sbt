@@ -20,6 +20,5 @@ lazy val restfulapi = (project in file("modules/apirest")).enablePlugins(PlaySca
 
 lazy val util = (project in file("modules/dbmodule")).settings(scalaVersion:="2.11.7")
 
-TwirlKeys.templateFormats += ("csv" -> "views.CsvFormat")
 
 
