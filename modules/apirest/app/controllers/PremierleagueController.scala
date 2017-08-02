@@ -2,17 +2,20 @@ package controllers
 
 import javax.inject._
 
+import akka.util.ByteString
+import play.api.http.HttpEntity
 import play.api.libs.json.{JsArray, JsValue, Json, Reads}
-import play.api.mvc.AnyContent
+import play.api.mvc._
 import utilities.MyOwnConversions._
 import utilities.ImplicitConvertions._
-import utilities.{UtilitiesForCSV, BaseController, DefaultControllerComponents, Place}
+import utilities._
 import com.ldg.model._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
 @Singleton
-class PremierleagueController @Inject()(action: DefaultControllerComponents) extends BaseController(action) {
+class PremierleagueController @Inject()(action: DefaultControllerComponents) extends BaseController(action) with ContentNegotiation {
+
 
   // some curl templates for testing POST request:
   /*
@@ -40,13 +43,35 @@ class PremierleagueController @Inject()(action: DefaultControllerComponents) ext
   }
 
 
+  /**
+    * curl template for testing GET request:
+    *
+    * curl -H "Content-Type: text/plain" http://localhost:9000/apirest/premier/matchs ; echo
+    *
+     * @return
+    */
 
+/*
 def getMatchGame = action.defaultActionBuilder { request =>
     //request.getQueryString()
 
   val arrayResult = UtilitiesForCSV("football.txt")
   Ok(Json.obj("status" ->"OK", "message" -> (JsArray(arrayResult))))
 }
+*/
+
+  def getMatchGame = action.defaultActionBuilder { implicit request =>
+    //request.getQueryString()
+
+    def arrayResult = UtilitiesForCSV("football.txt")
+
+
+    proccessContentNegotiation {
+      Json.obj("status" ->"OK", "message" -> (JsArray(arrayResult)))
+    }
+
+  }
+
 
   /**
     * The simplest way for process a request, in this case we call a default action builder
@@ -90,6 +115,8 @@ def getMatchGame = action.defaultActionBuilder { request =>
     // `request.body` contains a fully validated `Place` instance.
     val place = request.body
 
-    Ok(Json.obj("status" ->"OK", "message" -> ("Place '"+place.name+"' saved.") ))
+    new Status(200)(Json.obj("status" ->"OK", "message" -> ("Place '"+place.name+"' saved.") ))
+    //Ok(Json.obj("status" ->"OK", "message" -> ("Place '"+place.name+"' saved.") ))
+
   }
 }

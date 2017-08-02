@@ -72,8 +72,6 @@ class HomeController @Inject() extends Controller {
     Ok(views.csv.records(Record.sampleRecords))
   }
 
-
-
   /**
     * Action NOT registered in the route file. It's just for show how modify
     * some responses the response body. If you want to test it you will need to add it in

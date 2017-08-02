@@ -17,7 +17,7 @@ class UtilitiesForCSV(file:String) {
   val linesOfCvsMatch:Seq[String] = csvMatchs.getLines().toSeq
 
   /**
-    * Pattern for teh following regex:
+    * Pattern for the following regex:
     * (,)(?=(?:[^}]|\{[^{]*})*$)
     *
     * any thing,"{any thing}",any thing,....
@@ -63,6 +63,8 @@ def goalsPlayerList:String =>JsValue = listplayer => {
 
           val arrayPlayerMinutes= playerAndMinutesPlayed.split(":").toList
 
+           //Pattern for the following Regex:
+           //"(?m)^'|'$",""
           //remove simple apostrophe at the beginning and at the end of the word
           //pattern before 'string' after string
           val listPlayerMinutes:List[String] = arrayPlayerMinutes.map(playerOrMinutes=>playerOrMinutes.replaceAll("(?m)^'|'$",""))
