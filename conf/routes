@@ -2,6 +2,8 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
+# next line is a pointer to the application route file
+
 ->      /apirest                        apirest.Routes
 
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

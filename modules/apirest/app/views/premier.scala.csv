@@ -1,6 +1,10 @@
-@******************************************
-* Template for comma separate value files *
-******************************************@
+@*************************************
+* Template for csv file in PremierLe *
+**************************************@
 
-@(players: List[com.ldg.model.Player])"foo","bar"@for(player <- players) {
-"@player.playerName","@player.teamName"}
+@import com.ldg.model._
+
+@(matches: Seq[com.ldg.model.Match])"homeTeamName","homeTeamGoals","awayTeamName","awayTeamGoals","season","date"
+@for(matchgame <- matches) {
+"@matchgame.homeTeam.name","matchgame.homeTeam.goals","@matchgame.awayTeam.name","@matchgame.awayTeam.goals","@matchgame.season","@matchgame.date"
+}

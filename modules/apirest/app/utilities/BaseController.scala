@@ -18,7 +18,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
   *      a builder of actions that process GET/DELETE resquest
   *
   */
-class BaseController@Inject()(action: DefaultControllerComponents) extends Controller{
+class BaseController(action: DefaultControllerComponents) extends Controller{
 
   def validateJson[A : Reads] = BodyParsers.parse.json.validate(
     _.validate[A].asEither.left.map(e => BadRequest(JsError.toJson(e)))

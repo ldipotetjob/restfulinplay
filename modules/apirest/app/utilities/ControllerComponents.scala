@@ -13,7 +13,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
   *
   * We import the default global execution context for execute tasks submitted to them.
   * It's essential for the Future.apply method. We encourage You to define your own execution contexts and use
-  * them with Future, for now it is sufficient to know that you can import the default execution context as shown .
+  * them with Future, for now it enough import the default execution context as it is shown .
   *
   * It model a component needed for every controller instantiated in the project
   *
@@ -28,7 +28,7 @@ sealed trait ControllerComponents {
 }
 
 //TODO: a function that process every content-type for be called from every actionBuilder (DefaultActionBuilder,JsonActionBuilder)
-//TODO: internationalization of message
+//TODO: internationalization of messages
 
   /**
     * Action builder for simple Request.

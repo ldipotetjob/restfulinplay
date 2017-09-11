@@ -1,15 +1,13 @@
 package com.ldg.model
 
-=====================================================================
+This package contain the data model.
 
-This package contain the data model. Here
+==================================================================================================
 
+Classes and Objects:
 
+com.ldg.model.CVSUtilities => This class is not necessary, we have not removed it to give
+                              you an idea about how process plain files in Scala.
 
-
-
-
-===========================CONNECTION================================
-
-This module is relate for connection:
+com.ldg.model.Match => All necessary fields for create a Match an Insert it in a DataBase for a PoC
 

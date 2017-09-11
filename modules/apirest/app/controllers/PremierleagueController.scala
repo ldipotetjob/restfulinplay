@@ -2,12 +2,13 @@ package controllers
 
 import javax.inject._
 
-import akka.util.ByteString
-import play.api.http.HttpEntity
-import play.api.libs.json.{JsArray, JsValue, Json, Reads}
+import play.api.libs.json.{JsArray, JsValue, Json}
 import play.api.mvc._
 import utilities.MyOwnConversions._
+//import utilities.ImplicitConvertions._
+
 import utilities.ImplicitConvertions._
+
 import utilities._
 import com.ldg.model._
 
@@ -39,7 +40,7 @@ class PremierleagueController @Inject()(action: DefaultControllerComponents) ext
    val jsonMatchObject= request.body.as[Match]
     //as the specifications https://www.playframework.com/documentation/2.6.x/ScalaResults
     //The result content type is automatically inferred from the Scala value that you specify as the response body.
-    Ok(Json.obj("status" ->"OK", "message" -> (jsonMatchObject) ))
+    Ok(Json.obj("status" ->"OK", "message" -> jsonMatchObject ))
   }
 
 
@@ -65,10 +66,14 @@ def getMatchGame = action.defaultActionBuilder { request =>
 
     def arrayResult = UtilitiesForCSV("football.txt")
 
+    proccessContentNegotiation[Match](arrayResult)
 
+    /*
     proccessContentNegotiation {
-      Json.obj("status" ->"OK", "message" -> (JsArray(arrayResult)))
-    }
+      Json.obj("status" ->"OK", "message" -> JsArray(arrayResult))
+    }*/
+
+    //Ok(Json.obj("status" ->"OK", "message" -> arrayResult ))
 
   }
 
@@ -78,8 +83,8 @@ def getMatchGame = action.defaultActionBuilder { request =>
     * and process inside the action converting a body in a json, if something goes wrong we have
     * an NONE and therefore a BadRequest in other case a OK (200) of Response is get back.
     *
-    * Action NOT registered in the route file. It's just for show how modify in
-    * some responses the HTTP header. If you want to test it you will need to add it in
+    * Action NOT registered in the route file. It's just for show how modify the HTTP header
+    * some responses . If you want to test it you will need to add it in
     * the route file.
     *
     * @return Result (Ok/BadRequest)
@@ -119,4 +124,5 @@ def getMatchGame = action.defaultActionBuilder { request =>
     //Ok(Json.obj("status" ->"OK", "message" -> ("Place '"+place.name+"' saved.") ))
 
   }
+
 }
