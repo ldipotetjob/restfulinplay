@@ -8,7 +8,10 @@ import com.ldg.model.Team._
   *
   * Non Normalize CClass, just for this Use case
   */
-case class Match(homeTeam: HomeTeam, awayTeam: AwayTeam, date: String, season : String) {
+
+sealed trait Parseable
+
+case class Match(homeTeam: HomeTeam, awayTeam: AwayTeam, date: String, season : String) extends Parseable{
   // construction reference =>
   // this.result = Integer.toString(homeTeam.getGoals())+"-"+Integer.toString(awayTeam.getGoals());
   def result: Int = homeTeam.goals + awayTeam.goals

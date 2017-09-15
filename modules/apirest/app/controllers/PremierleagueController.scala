@@ -52,31 +52,14 @@ class PremierleagueController @Inject()(action: DefaultControllerComponents) ext
      * @return
     */
 
-/*
-def getMatchGame = action.defaultActionBuilder { request =>
-    //request.getQueryString()
-
-  val arrayResult = UtilitiesForCSV("football.txt")
-  Ok(Json.obj("status" ->"OK", "message" -> (JsArray(arrayResult))))
-}
-*/
-
   def getMatchGame = action.defaultActionBuilder { implicit request =>
     //request.getQueryString()
 
     def arrayResult = UtilitiesForCSV("football.txt")
 
-    proccessContentNegotiation[Match](arrayResult)
-
-    /*
-    proccessContentNegotiation {
-      Json.obj("status" ->"OK", "message" -> JsArray(arrayResult))
-    }*/
-
-    //Ok(Json.obj("status" ->"OK", "message" -> arrayResult ))
+    proccessContentNegotiation[Match](arrayResult/*Seq[com.ldg.model.Match]()*/)
 
   }
-
 
   /**
     * The simplest way for process a request, in this case we call a default action builder

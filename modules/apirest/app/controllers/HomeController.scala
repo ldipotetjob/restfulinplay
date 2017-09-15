@@ -29,7 +29,6 @@ class HomeController @Inject() extends Controller {
     Ok("Hello World, i' here!").withHeaders(
       CACHE_CONTROL -> "max-age=3600",
       ETAG -> "xx")
-
   }
 
   val places: List[Place] = List(Place(
@@ -61,15 +60,6 @@ class HomeController @Inject() extends Controller {
     }.getOrElse {
       Unauthorized("Oops, you are not connected")
     }
-  }
-
-  /*
-  def records = Action {
-    Ok(views.csv.premier(SamplePlayer.samplePlayers))
-  }
-*/
-  def records = Action {
-    Ok(views.csv.records(Record.sampleRecords))
   }
 
   /**
