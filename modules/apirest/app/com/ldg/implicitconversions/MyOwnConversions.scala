@@ -1,4 +1,4 @@
-package utilities
+package com.ldg.implicitconversions
 
 /**
   * This are the necessary conversion for execute all examples that appears in
@@ -6,8 +6,8 @@ package utilities
   *
   * Created by ldipotet on 20/6/17.
   */
-import play.api.libs.json._
 import play.api.libs.functional.syntax._
+import play.api.libs.json._
 
 object MyOwnConversions {
 

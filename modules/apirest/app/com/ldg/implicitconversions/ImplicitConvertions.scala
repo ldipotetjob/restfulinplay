@@ -1,8 +1,8 @@
-package utilities
+package com.ldg.implicitconversions
 
-import com.ldg.model.Team.{AwayTeam, HomeTeam}
-import play.api.libs.json.{Json, Format}
 import com.ldg.model.Match
+import com.ldg.model.Team.{AwayTeam, HomeTeam}
+import play.api.libs.json.{Format, Json}
 
 /**
   * Created by ldipotet on 29/6/17.

@@ -1,2 +1,0 @@
-@(records: List[utilities.Record])"foo","bar"@for(r <- records) {
-"@r.foo","@r.bar"}

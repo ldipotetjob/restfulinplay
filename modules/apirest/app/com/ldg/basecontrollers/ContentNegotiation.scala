@@ -1,10 +1,7 @@
-package utilities
+package com.ldg.basecontrollers
 
-
-import play.api.http._
-import play.api.libs.json.{Writes, Json}
+import play.api.libs.json.{Json, Writes}
 import play.api.mvc._
-import com.ldg.model._
 
 import scala.reflect.ClassTag
 

@@ -1,4 +1,4 @@
-package utilities
+package com.ldg.utils
 
 /**
   * Created by ldipotet on 23/7/17.

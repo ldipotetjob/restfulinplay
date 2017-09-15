@@ -1,13 +1,18 @@
 package controllers
 
 import akka.actor.ActorSystem
+
 import javax.inject._
+
 import play.api.mvc._
 import play.api.libs.json._
-import utilities.{Resident, Location, Place}
 import scala.concurrent.{ExecutionContext, Future, Promise}
 import scala.concurrent.duration._
-import utilities.MyOwnConversions._
+
+
+import com.ldg.implicitconversions.{Resident, Location, Place}
+import com.ldg.implicitconversions.MyOwnConversions._
+
 
 /**
  * This controller creates an `Action` that demonstrates how to write

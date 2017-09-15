@@ -1,4 +1,4 @@
-package utilities
+package com.ldg.basecontrollers
 
 import play.api.i18n._
 import play.api.libs.json.{JsError, Json}

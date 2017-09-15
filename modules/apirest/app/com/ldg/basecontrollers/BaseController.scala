@@ -1,9 +1,9 @@
-package utilities
+package com.ldg.basecontrollers
 
-import javax.inject.Inject
-
-import play.api.libs.json.{JsValue, Json, JsError, Reads}
+import play.api.libs.json.{JsError, JsValue, Json, Reads}
 import play.api.mvc._
+
+
 import scala.concurrent.ExecutionContext.Implicits.global
 
 /**
@@ -13,7 +13,6 @@ import scala.concurrent.ExecutionContext.Implicits.global
   *
   * @see utilities.DefaultControllerComponents.jsonActionBuilder a reference to JsonActionBuilder
   *      a builder of actions that process POST request
-  *
   * @see utilities.DefaultControllerComponents.defaultActionBuilder a reference to DefaultActionBuilder
   *      a builder of actions that process GET/DELETE resquest
   *

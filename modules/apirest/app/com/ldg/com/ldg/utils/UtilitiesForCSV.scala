@@ -1,4 +1,4 @@
-package utilities
+package com.ldg.utils
 
 import com.ldg.model.StatsTypes._
 import com.ldg.model.Match

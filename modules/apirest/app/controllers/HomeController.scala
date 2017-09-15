@@ -2,13 +2,10 @@ package controllers
 
 import javax.inject._
 import akka.util.ByteString
-import com.ldg.model.SamplePlayer
-import play.api._
+import com.ldg.implicitconversions.{Resident, Location, Place, MyOwnConversions}
 import play.api.http.HttpEntity
-import play.api.libs.json._
 import play.api.mvc._
-import utilities.{Resident, Location, Place,Record}
-import utilities.MyOwnConversions._
+
 
 /**
  * This controller creates an `Action` to handle HTTP requests to the
