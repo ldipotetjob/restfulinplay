@@ -2,6 +2,12 @@ This is NOT a package BUT require some explanations:
 
 ===========================================================================================================
 
+Play folders structure:
+https://dzone.com/articles/understanding-play-project-folder-structure
+
+
+
+
 Files involved:
 
 /conf/routes => principal route file. It contain the pointer to the application route file.
