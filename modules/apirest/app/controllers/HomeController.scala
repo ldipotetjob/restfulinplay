@@ -1,3 +1,7 @@
+/**
+  * Created by ldipotet on 13/7/17.
+  */
+
 package controllers
 
 import javax.inject._
@@ -5,7 +9,6 @@ import akka.util.ByteString
 import com.ldg.implicitconversions.{Resident, Location, Place, MyOwnConversions}
 import play.api.http.HttpEntity
 import play.api.mvc._
-
 
 /**
  * This controller creates an `Action` to handle HTTP requests to the

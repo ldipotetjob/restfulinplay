@@ -1,8 +1,9 @@
-package com.ldg.utils
-
 /**
   * Created by ldipotet on 23/7/17.
   */
+
+package com.ldg.utils
+
 case class Record(val foo: String, val bar: String)
 
 object Record {

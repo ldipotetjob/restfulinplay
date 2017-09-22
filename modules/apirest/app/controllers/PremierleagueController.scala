@@ -1,3 +1,7 @@
+/**
+  * Created by ldipotet on 13/7/17.
+  */
+
 package controllers
 
 import javax.inject._
@@ -76,7 +80,6 @@ class PremierleagueController @Inject()(action: DefaultControllerComponents) ext
   def save = action.defaultActionBuilder { request =>
     val body: AnyContent = request.body
     val jsonBody: Option[JsValue] = body.asJson
-
     // Expecting json body
     jsonBody.map { json =>
       Ok("Got: " + (json \ "name").as[String])

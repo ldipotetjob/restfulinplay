@@ -1,3 +1,7 @@
+/**
+  * Created by ldipotet on 28/6/17.
+  */
+
 package com.ldg.basecontrollers
 
 import play.api.libs.json.{Json, Writes}
@@ -45,5 +49,13 @@ trait ContentNegotiation {
     }
 
   def fNone[T]: Option[T] = None
+
+
+
+  //TODO Solve the following warning
+    /*
+    [info] application - Correct Content-type in Header: text/plain
+    [warn] p.c.s.n.NettyModelConversion - Content-Type set both in header (text/csv) and attached to entity (text/csv), ignoring content type from entity. To remove this warning, use Result.as(...) to set the content type, rather than setting the header manually.
+    */
 
 }

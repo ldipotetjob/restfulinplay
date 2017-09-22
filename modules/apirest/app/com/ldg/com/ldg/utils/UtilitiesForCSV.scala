@@ -1,3 +1,7 @@
+/**
+  * Created by ldipotet on 13/7/17.
+  */
+
 package com.ldg.utils
 
 import com.ldg.model.StatsTypes._
@@ -8,10 +12,7 @@ import play.api.libs.json._
 import scala.io.Source
 
 /**
-  * Created by ldipotet on 13/7/17.
-  *
-  * for testing any regex: https://regex101.com
-  *
+  * For testing any regex: https://regex101.com
   */
 class UtilitiesForCSV(file:String) {
 
@@ -28,7 +29,6 @@ class UtilitiesForCSV(file:String) {
     * or any other punctuations mark
     *
    */
-
 
   def jsonbjectOfMatchPremier:Seq[JsObject] = linesOfCvsMatch.map(
     csvlines=>{

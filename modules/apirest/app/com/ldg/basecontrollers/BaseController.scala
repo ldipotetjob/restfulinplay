@@ -1,3 +1,7 @@
+/**
+  * Created by ldipotet on 28/6/17.
+  */
+
 package com.ldg.basecontrollers
 
 import play.api.libs.json.{JsError, JsValue, Json, Reads}
@@ -7,8 +11,6 @@ import play.api.mvc._
 import scala.concurrent.ExecutionContext.Implicits.global
 
 /**
-  * Created by ldipotet on 28/6/17.
-  *
   * BaseController is the controller for all Actions in the project
   *
   * @see utilities.DefaultControllerComponents.jsonActionBuilder a reference to JsonActionBuilder

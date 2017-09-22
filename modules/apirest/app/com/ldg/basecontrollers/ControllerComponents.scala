@@ -1,3 +1,7 @@
+/**
+  * Created by ldipotet on 26/6/17.
+  */
+
 package com.ldg.basecontrollers
 
 import play.api.i18n._
@@ -9,7 +13,6 @@ import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 
 /**
-  * Created by ldipotet on 26/6/17.
   *
   * We import the default global execution context for execute tasks submitted to them.
   * It's essential for the Future.apply method. We encourage You to define your own execution contexts and use

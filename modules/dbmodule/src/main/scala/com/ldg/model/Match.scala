@@ -17,17 +17,11 @@ case class Match(homeTeam: HomeTeam, awayTeam: AwayTeam, date: String, season : 
   def result: Int = homeTeam.goals + awayTeam.goals
 }
 
-object Match {
+object TestMatchObject {
 
-  val awayTeam = AwayTeam("Manchester United",1,Map("Wayne Rooney"->List(" 90 +4'' ")))
-  val homeTeam = HomeTeam("Stoke City",1,Map("Juan Mata"->List(" 19'' ")))
-
-  /**
-    * An example of Object to insert: if we want to insert a Match Game
-    *
-    * val matchGame = Match(1877,homeTeam,awayTeam,"1495502158120","MW 22")
-    */
+  val awayTeam = AwayTeam("Manchester United",1,Map("Wayne Rooney"->List("90 +4''")))
+  val homeTeam = HomeTeam("Stoke City",1,Map("Juan Mata"->List("19''")))
+  val matchGame = Match(homeTeam,awayTeam,"1495502158120","MW 22")
 
 }
-
 

@@ -1,7 +1,11 @@
+/**
+  * Created by ldipotet on 23/7/17.
+  */
+
+
 package views
 
 /**
-  * Created by ldipotet on 23/7/17.
   *
   * Our Template is NOT include in the common template formats
   * so we need to add support for our own format.

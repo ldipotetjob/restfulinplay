@@ -18,7 +18,10 @@ lazy val restfulapi = (project in file("modules/apirest")).enablePlugins(PlaySca
   )
 )
 
-lazy val util = (project in file("modules/dbmodule")).settings(scalaVersion:="2.11.7")
+lazy val scalatest = "org.scalatest" %% "scalatest" % "3.0.1"
 
-
-
+lazy val util = (project in file("modules/dbmodule")).settings(scalaVersion:="2.11.7",
+  libraryDependencies ++= Seq( "com.typesafe.play" % "play-json_2.11" % "2.5.10",
+    scalatest % "test"
+  )
+)
