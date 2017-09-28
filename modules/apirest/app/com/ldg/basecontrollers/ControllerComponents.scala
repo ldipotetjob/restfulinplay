@@ -5,10 +5,12 @@
 package com.ldg.basecontrollers
 
 import play.api.i18n._
-import play.api.libs.json.{JsError, Json}
+import play.api.libs.json.Json
 import play.api.mvc._
-import javax.inject._
 import play.api.Logger
+
+import javax.inject._
+
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 
@@ -25,9 +27,9 @@ import scala.concurrent.ExecutionContext.Implicits.global
 sealed trait ControllerComponents {
   def defaultActionBuilder: ActionBuilder[Request]
   def jsonActionBuilder: ActionBuilder[Request]
-  def messagesApi: MessagesApi
+  //def messagesApi: MessagesApi
   def langs: Langs
-  def executionContext: scala.concurrent.ExecutionContext
+  //def executionContext: scala.concurrent.ExecutionContext
 }
 
 //TODO: a function that process every content-type for be called from every actionBuilder (DefaultActionBuilder,JsonActionBuilder)
@@ -38,6 +40,7 @@ sealed trait ControllerComponents {
     *
     * We only process request with content-type
     * Content-type specifications: https://tools.ietf.org/html/rfc7231#section-3.1.1.5
+    * So here only is processed request
     *
     */
 
@@ -47,6 +50,7 @@ sealed trait ControllerComponents {
 
         case Some("text/plain") => Logger.info("Simple HttpResquest")
           Logger.info("Correct Content-type in Header: text/plain")
+
           block(request) recover { case reqerror: Exception =>
             //we are dealing here with and unhandled exception
             Logger.error("Unexpected error  processing HttpRequest",reqerror)
@@ -93,7 +97,7 @@ class Authenticated extends ActionBuilder[Request] {
   * Status-Code Definitions : http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
   *
   * Remember: user-id & password should be as entity header
-  *
+  * https://stackoverflow.com/questions/36617948/play-2-4-actionbuilder-actionfunction-bodyparsers-and-json?rq=1
   */
 
 class JsonActionBuilder extends ActionBuilder[Request] {
@@ -103,13 +107,15 @@ class JsonActionBuilder extends ActionBuilder[Request] {
 
       case Some("application/json") => Logger.info("Simple HttpResquest")
         Logger.info("REQUEST: Json HttpRequest/ Json/Application")
-        block(request) recover { case reqerror: Exception =>
+
+          block(request) recover { case reqerror: Exception =>
           //we are dealing here with and unhandled exception
           Logger.error("Unexpected error  processing HttpRequest",reqerror)
           Results.InternalServerError
         }
       case Some(_) => Future.successful {
         val ownContentType:String = request.contentType.getOrElse("Unespecified Content-Type")
+        Logger.error(s"WRONG Content-Type in Header, must be:text/plain and it is: $ownContentType")
         Results.Forbidden(Json.obj("status" ->"KO", "message" -> s"Content-Type is: $ownContentType and must be: application/json "))
       }
       case None => Future.successful {
@@ -118,13 +124,12 @@ class JsonActionBuilder extends ActionBuilder[Request] {
       }
     }
   }
+
 }
-
-
 case class DefaultControllerComponents @Inject() (
                                                    defaultActionBuilder: DefaultActionBuilder,
                                                    jsonActionBuilder: JsonActionBuilder,
-                                                   messagesApi: MessagesApi,
-                                                   langs: Langs,
-                                                   executionContext: scala.concurrent.ExecutionContext)
+                                                   /*messagesApi: MessagesApi,*/
+                                                   langs: Langs/*,
+                                                   executionContext: scala.concurrent.ExecutionContext*/)
   extends ControllerComponents

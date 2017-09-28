@@ -1,5 +1,8 @@
-package com.ldg.model
+/**
+  * Created by ldipotet on 29/6/17.
+  */
 
+package com.ldg.model
 
 import com.ldg.model.Team._
 

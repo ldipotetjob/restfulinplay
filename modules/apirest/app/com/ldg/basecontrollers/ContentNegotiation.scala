@@ -4,7 +4,7 @@
 
 package com.ldg.basecontrollers
 
-import play.api.libs.json.{Json, Writes}
+import play.api.libs.json.{JsError, Json, Writes}
 import play.api.mvc._
 
 import scala.reflect.ClassTag
@@ -16,14 +16,26 @@ trait ContentNegotiation {
   self : Controller =>
 
   //Serializes the provided value according to the Accept headers of the (implicitly) provided request
-  def proccessContentNegotiation[C<:com.ldg.model.Parseable](content: Seq[C])(implicit request: Request[AnyContent],tag: ClassTag[C], writeable: Writes[C]) : Result = {
-     val AcceptsCSV = Accepting("txt/csv")
+  def proccessContentNegotiation[C<:com.ldg.model.Parseable](content: Seq[C])(implicit request: Request[AnyContent],tag: ClassTag[C], writeable: Writes[C]): Result = {
+     val AcceptsCSV = Accepting("text/csv")
     render {
       case Accepts.Json() => Ok(Json.obj("status" ->"OK", "message" -> Json.toJson(content) )).withHeaders(CONTENT_TYPE->JSON)
       case AcceptsCSV() => Ok( selecTemplate[C](content)).withHeaders(CONTENT_TYPE->"text/csv")
-      case _ => NotAcceptable("The aceptable value can not be served, only serve text/cvs or application/json")
+      case _ => NotAcceptable("The Accept value can not be served, only serve text/csv or application/json")
     }
   }
+
+
+  //Serializes the provided value according to the Accept headers of the (implicitly) provided request
+  def processContentNegotiationForJson[C<:com.ldg.model.Parseable](content: C)()(implicit request: Request[AnyContent],tag: ClassTag[C], writeable: Writes[C]) : Result = {
+    val AcceptTextPlain = Accepting("text/plain")
+    render {
+      case Accepts.Json() => Ok(Json.obj("status" ->"OK", "message" -> Json.toJson(content) )).withHeaders(CONTENT_TYPE->JSON)
+      case AcceptTextPlain() => Ok("Process Done").withHeaders(CONTENT_TYPE->"text/plain")
+      case _ => NotAcceptable("The Accept value can not be served, only serve txt/csv or application/json")
+    }
+  }
+
 
   def selecTemplate[T](genericSeq:Seq[Any])(implicit tag: ClassTag[T]) ={
 
@@ -48,8 +60,8 @@ trait ContentNegotiation {
       case _ => Option.empty[T]
     }
 
-  def fNone[T]: Option[T] = None
 
+  def fNone[T]: Option[T] = None
 
 
   //TODO Solve the following warning

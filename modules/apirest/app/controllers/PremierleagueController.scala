@@ -8,28 +8,29 @@ import javax.inject._
 
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc._
-
-import com.ldg.basecontrollers.{ContentNegotiation, BaseController, DefaultControllerComponents}
+import com.ldg.basecontrollers.{BaseController, ContentNegotiation, DefaultControllerComponents}
 import com.ldg.implicitconversions.Place
 import com.ldg.implicitconversions.MyOwnConversions._
 import com.ldg.implicitconversions.ImplicitConvertions._
 import com.ldg.model._
-import com.ldg.utils.UtilitiesForCSV
+import services.TDataServices
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
 @Singleton
-class PremierleagueController @Inject()(action: DefaultControllerComponents) extends BaseController(action) with ContentNegotiation {
+class PremierleagueController @Inject()(action: DefaultControllerComponents,services:TDataServices) extends BaseController(action) with ContentNegotiation {
 
 
   // some curl templates for testing POST request:
   /*
 
-    (this Match don't has indexNumber operations, is a fake POST)
-    for JsonAction[Match]:
-    curl -d '{"awayTeamGoals":2,"awayGoalsplayer":{"Mark Walters":["43''"],"Ronnie Rosenthal":["84''"]},"matchAwayteam":"Liverpool","matchDate":"716911200000","homeTeamGoal":4,"homeGoalsplayer":{"Dean Saunders":["44''","66''"],"Garry Parker":["78''"]},"matchHometeam":"Aston Villa","season":"MW 6"}' -H "Content-Type: application/json" http://localhost:9000/apirest/premier/match ; echo
+    curl -d '{"date" : "1495502158120","season" : "MW 26","homeTeam" :{"name" : "Aston Villa","goals" : 3,"goalsPlayer" : {"Dean Saunders": ["44''", "66''"],"Garry Parker": ["78''"]}},"awayTeam" : {"name" : "Liverpool","goals" : 3,"goalsPlayer" : {"Mark Walters": ["43''"],"Ronnie Rosenthal": ["84''"],"John Williams": ["90''"]}}}'  -H "Content-Type: application/json" http://localhost:9000/apirest/premier/match ; echo
 
   */
+
+  // other solution more elegant is put the json in a file and type de following command in your terminal:
+  // curl -d "@myJasonFile.json"  -H "Content-Type: application/json" http://localhost:9000/apirest/premier/match ; echo
+
   /**
     * Best way, using a wrapper for a action that process a POST with a JSON in the request.
     *
@@ -39,7 +40,7 @@ class PremierleagueController @Inject()(action: DefaultControllerComponents) ext
     *         json that show the result
     */
 
-  def insertMatch = JsonAction[Match] { request =>
+  def insertMatch = JsonAction[Match] { implicit request =>
 
    val jsonMatchObject= request.body.as[Match]
     //as the specifications https://www.playframework.com/documentation/2.6.x/ScalaResults
@@ -47,21 +48,19 @@ class PremierleagueController @Inject()(action: DefaultControllerComponents) ext
     Ok(Json.obj("status" ->"OK", "message" -> jsonMatchObject ))
   }
 
-
   /**
     * curl template for testing GET request:
     *
     * curl -H "Content-Type: text/plain" http://localhost:9000/apirest/premier/matchs ; echo
     *
-     * @return
+    * @return
     */
 
   def getMatchGame = action.defaultActionBuilder { implicit request =>
-    //request.getQueryString()
 
-    def arrayResult = UtilitiesForCSV("football.txt")
+    def dataResults:Seq[Match] = services.modelOfMatchPremier("football.txt")
 
-    proccessContentNegotiation[Match](arrayResult/*Seq[com.ldg.model.Match]()*/)
+    proccessContentNegotiation[Match](dataResults)
 
   }
 

@@ -1,6 +1,67 @@
-This is NOT a package BUT require some explanations:
+============== Project info ====================
 
-===========================================================================================================
+Play Framework in a nutshell with deeply proof of concept
+
+===> All project must be modularized:
+
+    - Those projects that to play in play modules.
+    - Projects that belong to other stuff (data model, bbdd, general utilities, etc) shoul be in other modules.
+    - We need to perform a different configuration:
+        - Two route files:
+          .- One in the root and the others in each module (s)
+          For example in our case :
+            .- conf/routes
+            .- modules/apirest/conf/apirest.routes
+
+===>  Sbt' structure :
+
+
+     We have used the deprecated structure of sbt mainly with a principal module but is simple pf fix, you can place
+     every module with your build.sbt and then in the root project you can build the different modules. It will let you
+     tha every project have its own life.
+
+     We have a particular case: modules/apirest/build.sbt ===> in this file we are telling at twirl templates the way in
+     which should be formatted the template that have to generate all csv files so here:
+
+     TwirlKeys.templateFormats += ("csv" -> "views.CsvFormat") we let know the system who is responsible for.
+
+     Hemos usado la estructura antigua sbt, muy simple ubicar en cada modulo su build.sbt y luego en el proyecto raiz
+     construir los diferentes módulos. Ello permitirá que además cada modulo tenga una vida libre.
+
+     Tenemos un caso bastante particular: modules/apirest/build.sbt ===> en este fichero de construcción estamos diciendole
+     a twirl template de que manera debe formatear todas aquellas templates que vayan a generar documentos de ficheros csv, con lo que aqui : TwirlKeys.templateFormats += ("csv" -> "views.CsvFormat") dejamos claro la clase que tratará la misma.
+
+
+===> Los curl de ejemplos que aparecen comentados en codigos pueden ser usado, recordar que los curl si no se le agregan los
+     headers los esteblece headers por defectos asi que lo mejor es establecerlos tal y como indica en el código
+
+===>
+
+Hemos personalizado nuestras propias funciones de validacion pero si decides usar usar las validaciones de Play
+hemos dejado una de las actions cuya validacion va a cuenta de la api donde validara los siguientes elementos cuando
+estemos tratando con jsvalue:
+
+- el tamaño del json , que en play tiene un tamaño maximo a partir del cual habria que procesar el json si quisieramos tratar la request
+- verfica el content-type de modo que solo tratará aquello bodies con un content-type text/json o application/json
+
+Sino pasa la validacion genera la propia api la respuesta sin una personalizacion, esta podría ser otra opcion por nosotros a tener en cuenta.
+
+===> Las referenceias para hacer las llamadas a los servicios
+
+===> Testing de las funcionalidades:
+
+      Hemos testeado las funcionalidades básicas para cuando el funcionamiento es el correcto :
+
+      - Conversion implicitas
+      - Controladores,acciones de los mismos
+
+
+      Dejamos a los interesados el testeado de las funcionalidades básicas para cuando fallen las diferentes
+      funcionalidades.
+
+      Estilo usado: Style - FlatSpec
+      ref.: http://www.scalatest.org/at_a_glance/FlatSpec
+
 
 Play folders structure:
 https://dzone.com/articles/understanding-play-project-folder-structure
@@ -23,3 +84,6 @@ modules/dbmodule => this module contain the database model that will be inserted
 
 
 /logs => Store the log file.
+
+
+remember: start sbt console in debug mode : sbt -jvm-debug 5005

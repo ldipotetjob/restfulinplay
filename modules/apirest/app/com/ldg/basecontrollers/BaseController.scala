@@ -25,6 +25,10 @@ class BaseController(action: DefaultControllerComponents) extends Controller{
     _.validate[A].asEither.left.map(e => BadRequest(JsError.toJson(e)))
   )
 
+  def validateJsonTmp[A : Reads] = BodyParsers.parse.json.validate(
+    _.validate[A].asEither.left.map(e => BadRequest(JsError.toJson(e)))
+  )
+
   /**
     * Process POST request
     *
@@ -33,12 +37,12 @@ class BaseController(action: DefaultControllerComponents) extends Controller{
     *
     * requestwithresult: Function that receives the request that will be processed with its result
     *
-   */
-  def JsonAction[J](requestwithresult: Request[JsValue] => Result)(implicit reads: Reads[J]) = {
+    */
+  def JsonAction[A](requestwithresult: Request[JsValue] => Result)(implicit reads: Reads[A]) = {
 
     action.jsonActionBuilder(BodyParsers.parse.json) {  request =>
 
-      val actionResult = request.body.validate[J]
+      val actionResult = request.body.validate[A]
 
       actionResult.fold(
         errors => {
@@ -52,5 +56,6 @@ class BaseController(action: DefaultControllerComponents) extends Controller{
     }
 
   }
+
 
 }
