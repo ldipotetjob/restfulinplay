@@ -82,4 +82,3 @@ class modelConverterTest extends FlatSpec with Matchers{
 
   }
 }
-

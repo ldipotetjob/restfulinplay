@@ -6,17 +6,17 @@ package controllers
 
 import javax.inject._
 
-import play.api.libs.json.{JsValue, Json}
+import play.api.libs.json._
 import play.api.mvc._
-import com.ldg.basecontrollers.{BaseController, ContentNegotiation, DefaultControllerComponents}
-import com.ldg.implicitconversions.Place
-import com.ldg.implicitconversions.MyOwnConversions._
-import com.ldg.implicitconversions.ImplicitConvertions._
-import com.ldg.model._
-import services.TDataServices
 
 import scala.concurrent.ExecutionContext.Implicits.global
+import com.ldg.basecontrollers.{BaseController, ContentNegotiation, DefaultControllerComponents}
+import com.ldg.implicitconversions._
+import com.ldg.implicitconversions.MyOwnConversions._
+import com.ldg.implicitconversions.ImplicitConvertions._
 
+import com.ldg.model._
+import services.TDataServices
 @Singleton
 class PremierleagueController @Inject()(action: DefaultControllerComponents,services:TDataServices) extends BaseController(action) with ContentNegotiation {
 
@@ -40,13 +40,21 @@ class PremierleagueController @Inject()(action: DefaultControllerComponents,serv
     *         json that show the result
     */
 
-  def insertMatch = JsonAction[Match] { implicit request =>
 
-   val jsonMatchObject= request.body.as[Match]
-    //as the specifications https://www.playframework.com/documentation/2.6.x/ScalaResults
-    //The result content type is automatically inferred from the Scala value that you specify as the response body.
-    Ok(Json.obj("status" ->"OK", "message" -> jsonMatchObject ))
+    def insertMatchWithCustomized = action.jsonActionBuilder{ implicit request =>
+
+    val matchGame: Match = request.body.asJson.get.as[Match]
+      processContentNegotiationForJson[Match](matchGame)
   }
+
+  def insertMatchGeneric = JsonAction[Match](matchReads){ implicit request =>
+
+    val matchGame: Match = request.body.asJson.get.as[Match]
+
+    processContentNegotiationForJson[Match](matchGame)
+
+  }
+
 
   /**
     * curl template for testing GET request:
@@ -106,7 +114,6 @@ class PremierleagueController @Inject()(action: DefaultControllerComponents,serv
     val place = request.body
 
     new Status(200)(Json.obj("status" ->"OK", "message" -> ("Place '"+place.name+"' saved.") ))
-    //Ok(Json.obj("status" ->"OK", "message" -> ("Place '"+place.name+"' saved.") ))
 
   }
 

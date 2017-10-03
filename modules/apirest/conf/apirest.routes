@@ -15,7 +15,9 @@ GET     /assets/*file            controllers.Assets.versioned(path="/public", fi
 POST     /newsaveplace              controllers.PremierleagueController.savePlaceConcise
 
 #processing premierLeague
-POST     /premier/match             controllers.PremierleagueController.insertMatch
+POST     /premier/match             controllers.PremierleagueController.insertMatchWithCustomized
+
+POST     /premier/matchgeneric             controllers.PremierleagueController.insertMatchGeneric
 
 GET      /premier/matchs            controllers.PremierleagueController.getMatchGame
 

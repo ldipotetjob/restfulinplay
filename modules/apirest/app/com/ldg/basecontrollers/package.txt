@@ -1,20 +1,42 @@
-package ldg.com.implicitdb.conversions
+package com.ldg.basecontrollers
 
-  /**
-    *  Provides all implicit conversion needed for the operations related with Cassandra
-    *
-    *  implicit def resultSetFutureToScala => this type is important if we want to access in asynchronous mode
-    *  to cassandra Data because datastax drivers works with ResultSetFuture and Scala Future works with
-    *  ResultSet that is an Iterable.
-    *
-    *  =======================================================
-    *
-    *  implicit def rowToMatch => this is the core of our operation because we will receive always a Row of something
-    *  and the transform it in the model that we want. So each model must have its specific implicit.
-    *
-    *  =========================================================
-    *
-    *  implicit class ListOf[A] => this implicit is valid for all of collection, you can think of it more or less
-    *  as Ascription. We have a List[A] => List[B] an of course we must have an implicit conversion A => B
-    *
-    */
+========== Important aspect of different Class ==========
+
+
+trait ContentNegotiation ===>
+
+===> For Content Negotiation this PoC we check only :
+
+     Content-type
+     Accept
+
+    A perfect design should take this best practices:
+
+        - Content-type
+        - Accept
+        - Accept-Encoding
+        - Accept-Language
+        - Cache-Control => it's really important basically when you retrieve information from databases
+
+        * Right Response Code and of course a good handle negotiation failure
+
+
+===> For TypeErasure:
+     For solve type erasure problem tha JVM have we use this parammeter tag: ClassTag[C].
+     If this problem is NOT familiar for you please check:
+     https://docs.oracle.com/javase/tutorial/java/generics/erasure.html
+
+     But what happen basically is that the compiler removes all generic type information after compilation.
+     This means that we are not able to differentiate between, for example Seq[Int] and Seq[String] at runtime.
+
+     So ClassTag[C] will maintain our type. Any way if you are an eaguer reader here there are a reference about
+     different way of treat this problem in scala:
+     https://docs.scala-lang.org/overviews/reflection/typetags-manifests.html
+
+===> self : Controller => :
+     For solve the problem that mix a trait in other trait. In this case we need to use objects and functions from
+     trait Controller.Is a way to narrow the trait Controller to my customized ContentNegotiation.
+
+     ref: https://docs.scala-lang.org/tour/self-types.html
+
+===>

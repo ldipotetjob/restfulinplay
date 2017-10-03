@@ -4,7 +4,7 @@
 
 package com.ldg.basecontrollers
 
-import play.api.libs.json.{JsError, Json, Writes}
+import play.api.libs.json._
 import play.api.mvc._
 
 import scala.reflect.ClassTag
@@ -12,7 +12,16 @@ import scala.reflect.ClassTag
 
 trait ContentNegotiation {
 
-  //Self type annotation -> trait must be mixed into Controller (thus, has access to render, Accepts and Ok)
+  /**
+    *
+    * Self type annotation -> trait can be mixed into Controller without extends it
+    *                         (thus, has access to render, Accepts and Ok and the rest of members
+    *                         trait Controller)
+    *
+    *
+    *
+   */
+
   self : Controller =>
 
   //Serializes the provided value according to the Accept headers of the (implicitly) provided request
@@ -26,8 +35,21 @@ trait ContentNegotiation {
   }
 
 
-  //Serializes the provided value according to the Accept headers of the (implicitly) provided request
-  def processContentNegotiationForJson[C<:com.ldg.model.Parseable](content: C)()(implicit request: Request[AnyContent],tag: ClassTag[C], writeable: Writes[C]) : Result = {
+
+  /**
+    *
+    * Serializes the provided value according to the Accept headers of the (implicitly) provided request
+    *
+    * @param content
+    * @param request Remember that its depend of the request Body and REMEMBER tha the body is transformed in case
+    *                of any validator
+    * @param tag preventing type erasure
+    * @param writeable
+    * @tparam C
+    * @return
+    */
+
+  def processContentNegotiationForJson[C<:com.ldg.model.Parseable](content: C)()(implicit request: Request[AnyContent], tag: ClassTag[C], writeable: Writes[C]) : Result = {
     val AcceptTextPlain = Accepting("text/plain")
     render {
       case Accepts.Json() => Ok(Json.obj("status" ->"OK", "message" -> Json.toJson(content) )).withHeaders(CONTENT_TYPE->JSON)
@@ -40,6 +62,13 @@ trait ContentNegotiation {
   def selecTemplate[T](genericSeq:Seq[Any])(implicit tag: ClassTag[T]) ={
 
     extractRightCollection[T](genericSeq) match {
+
+      /**
+        * This match can NOT be generic. For every kind of model we need an specific template.
+        * So you should have so many "Templates" and so many "Case" as report you need.
+        * Now we have only views.csv.premier In real case you can have as many template as you need.
+        *
+        */
 
       case Some(matchgame:com.ldg.model.Match) => {
 
@@ -59,10 +88,6 @@ trait ContentNegotiation {
 
       case _ => Option.empty[T]
     }
-
-
-  def fNone[T]: Option[T] = None
-
 
   //TODO Solve the following warning
     /*

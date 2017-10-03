@@ -5,8 +5,9 @@
 package controllers
 
 import javax.inject._
+
 import akka.util.ByteString
-import com.ldg.implicitconversions.{Resident, Location, Place, MyOwnConversions}
+import com.ldg.implicitconversions.{Location, Place, Resident}
 import play.api.http.HttpEntity
 import play.api.mvc._
 
@@ -25,8 +26,9 @@ class HomeController @Inject() extends Controller {
     *
     */
 
-  def indexWithHeader = Action {
-    Ok("Hello World, i' here!").withHeaders(
+  def indexWithHeader = Action(BodyParsers.parse.json) { request =>
+
+    Ok( "Hello World, i' here!").withHeaders(
       CACHE_CONTROL -> "max-age=3600",
       ETAG -> "xx")
   }

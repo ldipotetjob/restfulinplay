@@ -1,9 +1,11 @@
+/**
+  * Created by ldipotet on 29/6/17.
+  */
+
 package com.ldg.model
 
 import java.io._
 import scala.io.Source
-
-
 
 /**
   * Created by ldipotet on 6/7/17.
