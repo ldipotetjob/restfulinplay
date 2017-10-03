@@ -1,5 +1,6 @@
 package com.ldg.basecontrollers
 
+
 ========== Important aspect of different Class ==========
 
 
@@ -22,7 +23,7 @@ trait ContentNegotiation ===>
 
 
 ===> For TypeErasure:
-     For solve type erasure problem tha JVM have we use this parammeter tag: ClassTag[C].
+     For solving type erasure problem tha JVM have we use this parammeter tag: ClassTag[C].
      If this problem is NOT familiar for you please check:
      https://docs.oracle.com/javase/tutorial/java/generics/erasure.html
 
@@ -34,9 +35,7 @@ trait ContentNegotiation ===>
      https://docs.scala-lang.org/overviews/reflection/typetags-manifests.html
 
 ===> self : Controller => :
-     For solve the problem that mix a trait in other trait. In this case we need to use objects and functions from
-     trait Controller.Is a way to narrow the trait Controller to my customized ContentNegotiation.
+     For solving the problem that mix a trait in other trait. In this case we need to use objects and functions from
+     trait Controller.It is a way to narrow the trait Controller to my customized ContentNegotiation.
 
      ref: https://docs.scala-lang.org/tour/self-types.html
-
-===>

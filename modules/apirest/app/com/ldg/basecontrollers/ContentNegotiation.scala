@@ -18,8 +18,6 @@ trait ContentNegotiation {
     *                         (thus, has access to render, Accepts and Ok and the rest of members
     *                         trait Controller)
     *
-    *
-    *
    */
 
   self : Controller =>

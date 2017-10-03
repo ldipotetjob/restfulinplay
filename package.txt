@@ -1,81 +1,75 @@
 ============== Project info ====================
 
-Play Framework in a nutshell with deeply proof of concept
+Play Framework in a nutshell with a deep proof of concept
 
 ===> All project must be modularized:
 
-    - Those projects that to play in play modules.
-    - Projects that belong to other stuff (data model, bbdd, general utilities, etc) shoul be in other modules.
+    - All Play projects in Play modules.
+    - Projects that belong to other stuff (data model, bbdd, general utilities, etc) should be in other modules.
     - We need to perform a different configuration:
         - Two route files:
-          .- One in the root and the others in each module (s)
+          .- One in the root and the others in each play module (s)
           For example in our case :
             .- conf/routes
             .- modules/apirest/conf/apirest.routes
 
 ===>  Sbt' structure :
 
-     We have used the deprecated structure of sbt mainly with a principal module but is simple pf fix, you can place
-     every module with your build.sbt and then in the root project you can build the different modules. It will let you
-     that every project has its own life.
+     We have used a deprecated structure of sbt with a principal module but it is simple to fix, you can place
+     every module with its own build.sbt file and then in the root project you can crete a build file that mix the
+     different modules. It will let you that every project has its own life.
 
      We have a particular case: modules/apirest/build.sbt ===> in this file we are telling to the twirl templates the
-     way how it should be formatted. The template that have to generate csv files have to be formatted:
+     way how it should be formatted. The template that has to generate csv files has to be formatted:
 
      TwirlKeys.templateFormats += ("csv" -> "views.CsvFormat") we let to know the system who is responsible for.
 
-===> Los curl de ejemplos que aparecen comentados en codigos pueden ser usado, recordar que los curl si no se le agregan los
-     headers los esteblece headers por defectos asi que lo mejor es establecerlos tal y como indica en el código
+===> Log files: /logs => Store the log file.
 
-===> Basically what check json validations:
+===> Basically json validations check:
 
-Hemos personalizado nuestras propias funciones de validacion pero si decides usar usar las validaciones de Play
-hemos dejado una de las actions cuya validacion va a cuenta de la api donde validara los siguientes elementos cuando
-estemos tratando con jsvalue:
+    - the size of the json, which in playframework has a maximum size from which to process the json if we want to treat the request.
+    - checks the content-type so that it only treats those bodies with a content-type text/json or application/json.
 
-- the size of the json, which in play has a maximum size from which to process the json if we want to treat the request.
-- checks the content-type so that it only treats those bodies with a content-type text/json or application/json.
+===> Testing:
 
-Sino pasa la validacion genera la propia api la respuesta sin una personalizacion, esta podría ser otra opcion por nosotros a tener en cuenta.
+      Aspect tested:
 
-===> Las referenceias para hacer las llamadas a los servicios
+       - Implicit convertions.
+       - Controllers and actions.
 
-===> Testing de las funcionalidades:
+       Style: FlatSpec
+       ref.: http://www.scalatest.org/at_a_glance/FlatSpec
 
-      Hemos testeado las funcionalidades básicas para cuando el funcionamiento es el correcto :
+       Anatomy of a Playframework project:
+       https://www.playframework.com/documentation/2.6.x/Anatomy
 
-      - Conversion implicitas
-      - Controladores,acciones de los mismos
+===> Minimal requirement for run the project:
 
+       - jdk 1.8+  => if you want check version: java -version
+       - scala 2.11+ => if you want check version: scala -version
+       - sbt 0.13+ => if you want check version: sbt about
 
-      Dejamos a los interesados el testeado de las funcionalidades básicas para cuando fallen las diferentes
-      funcionalidades.
+===> How run the project:
 
-      Estilo usado: Style - FlatSpec
-      ref.: http://www.scalatest.org/at_a_glance/FlatSpec
+       if you have (===> Minimal requirement for run the project)
 
+       - Download the project
+       - go to root of the project
+       - sbt run
 
-Play folders structure:
-https://dzone.com/articles/understanding-play-project-folder-structure
+===> How make request for test the project:
 
-
-
-
-Files involved:
-
-/conf/routes => principal route file. It contain the pointer to the application route file.
-
-modules/apirest => this is the core of the project. It implements rest services with Play.
-
-modules/apirest/build.sbt =>
-Configuration for use the Template Engine twirl
-TwirlKeys.templateFormats += ("csv" -> "views.CsvFormat")
-
-modules/dbmodule => this module contain the database model that will be inserted/served by the api Rest.
+        - go to play route file: root_project/modules/apirest/conf/apirest.routes
+          Each route have "# pattern:" and "# example:" so you can cut and paste the example, check your url host
+          and port number in case of any change.
 
 
+===> How run test suites in the project:
 
-/logs => Store the log file.
+       - go to root of the project
+       - sbt test
 
+===> Running in debug mode:
 
-remember: start sbt console in debug mode : sbt -jvm-debug 5005
+        start sbt console in debug mode : sbt -jvm-debug 5005

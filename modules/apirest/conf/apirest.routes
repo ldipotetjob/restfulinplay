@@ -3,7 +3,9 @@
 # ~~~~
 
 # An example controller showing a sample home page
-# scheme:[//[user[:password]@]host[:port]]/apirest => http://localhost:9000/apirest
+
+# scheme:[//[user[:password]@]host[:port]]/apirest =>
+# example: http://localhost:9000/apirest
 GET     /                           controllers.HomeController.indexModifiyingBody
 
 
@@ -59,9 +61,3 @@ POST     /premier/matchgame             controllers.PremierleagueController.inse
 # pattern: curl -d 'json_file' -H "Content-Type: application/json" scheme:[//[user[:password]@]host[:port]]/apirest/premier/match
 # example: curl -d '{"date" : "1495502158120","season" : "MW 26","homeTeam" :{"name" : "Aston Villa","goals" : 3,"goalsPlayer" : {"Dean Saunders": ["44''", "66''"],"Garry Parker": ["78''"]}},"awayTeam" : {"name" : "Liverpool","goals" : 3,"goalsPlayer" : {"Mark Walters": ["43''"],"Ronnie Rosenthal": ["84''"],"John Williams": ["90''"]}}}'  -H "Content-Type: application/json" http://localhost:9000/apirest/premier/match;echo
 POST     /premier/match             controllers.PremierleagueController.insertMatchWithCustomized
-
-
-##GET     /assets/*file            controllers.Assets.versioned(path="/public", file: Asset)
-
-
-

@@ -2,12 +2,15 @@ package com.ldg.model
 
 This package contain the data model.
 
-==================================================================================================
+modules/dbmodule => this module contain the database model that will be inserted/served by the api Rest.
+
+
+========================================================================================================
 
 Classes and Objects:
 
-com.ldg.model.CVSUtilities => This class is not necessary, we have not removed it to give
-                              you an idea about how process plain files in Scala.
+com.ldg.model.CVSUtilities => This class is not necessary, we have not removed it to give you an idea about how
+                              process plain files in Scala.
 
-com.ldg.model.Match => All necessary fields for create a Match an Insert it in a DataBase for a PoC
+com.ldg.model.Match => All necessary fields for create a Match model an Insert it in a DataBase for a PoC
 

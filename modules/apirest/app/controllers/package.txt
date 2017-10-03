@@ -1,5 +1,9 @@
 package ldg.com.implicitdb.conversions
 
+modules/apirest => this is the core of the project. It implements rest services in PlayFramework.
+
+
+
   /**
     *  Provides all implicit conversion needed for the operations related with Cassandra
     *
