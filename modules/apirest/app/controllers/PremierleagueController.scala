@@ -20,16 +20,15 @@ import services.TDataServices
 @Singleton
 class PremierleagueController @Inject()(action: DefaultControllerComponents,services:TDataServices) extends BaseController(action) with ContentNegotiation {
 
-
-  // some curl templates for testing POST request:
-  /*
-
-    curl -d '{"date" : "1495502158120","season" : "MW 26","homeTeam" :{"name" : "Aston Villa","goals" : 3,"goalsPlayer" : {"Dean Saunders": ["44''", "66''"],"Garry Parker": ["78''"]}},"awayTeam" : {"name" : "Liverpool","goals" : 3,"goalsPlayer" : {"Mark Walters": ["43''"],"Ronnie Rosenthal": ["84''"],"John Williams": ["90''"]}}}'  -H "Content-Type: application/json" http://localhost:9000/apirest/premier/match ; echo
-
-  */
-
-  // other solution more elegant is put the json in a file and type de following command in your terminal:
-  // curl -d "@myJasonFile.json"  -H "Content-Type: application/json" http://localhost:9000/apirest/premier/match ; echo
+  /**
+    * for test this POST request
+    * curl -d '{"date" : "1495502158120","season" : "MW 26","homeTeam" :{"name" : "Aston Villa","goals" : 3,"goalsPlayer" : {"Dean Saunders": ["44''", "66''"],"Garry Parker": ["78''"]}},"awayTeam" : {"name" : "Liverpool","goals" : 3,"goalsPlayer" : {"Mark Walters": ["43''"],"Ronnie Rosenthal": ["84''"],"John Williams": ["90''"]}}}'  -H "Content-Type: application/json" http://localhost:9000/apirest/premier/match;echo
+    *
+    * other solution more elegant is put the json in a file and type de following command in your terminal:
+    *
+    * curl -d "@myJasonFile.json"  -H "Content-Type: application/json" http://localhost:9000/apirest/premier/match ; echo
+    *
+    */
 
   /**
     * Best way, using a wrapper for a action that process a POST with a JSON in the request.
@@ -47,6 +46,21 @@ class PremierleagueController @Inject()(action: DefaultControllerComponents,serv
       processContentNegotiationForJson[Match](matchGame)
   }
 
+  /**
+    *
+    * for test this action
+    * curl -d '{"date" : "1495502158120","season" : "MW 26","homeTeam" :{"name" : "Aston Villa","goals" : 3,"goalsPlayer" : {"Dean Saunders": ["44''", "66''"],"Garry Parker": ["78''"]}},"awayTeam" : {"name" : "Liverpool","goals" : 3,"goalsPlayer" : {"Mark Walters": ["43''"],"Ronnie Rosenthal": ["84''"],"John Williams": ["90''"]}}}'  -H "Content-Type: application/json" http://localhost:9000/apirest/premier/matchgame;echo
+    *
+    */
+
+  /**
+    *
+    * matchReads: implicit Reads=> Reads[Match]
+    * @see com.ldg.implicitconversions.ImplicitConvertions.matchReads
+    *
+    */
+
+
   def insertMatchGeneric = JsonAction[Match](matchReads){ implicit request =>
 
     val matchGame: Match = request.body.asJson.get.as[Match]
@@ -55,13 +69,12 @@ class PremierleagueController @Inject()(action: DefaultControllerComponents,serv
 
   }
 
-
   /**
-    * curl template for testing GET request:
     *
-    * curl -H "Content-Type: text/plain" http://localhost:9000/apirest/premier/matchs ; echo
+    * for testing GET request:
     *
-    * @return
+    * curl -H "Content-Type: text/plain" http://localhost:9000/apirest/premier/matchs
+    *
     */
 
   def getMatchGame = action.defaultActionBuilder { implicit request =>
@@ -81,10 +94,9 @@ class PremierleagueController @Inject()(action: DefaultControllerComponents,serv
     * some responses . If you want to test it you will need to add it in
     * the route file.
     *
-    * @return Result (Ok/BadRequest)
     */
 
-  def save = action.defaultActionBuilder { request =>
+  def save = action.defaultActionBuilder{ request =>
     val body: AnyContent = request.body
     val jsonBody: Option[JsValue] = body.asJson
     // Expecting json body
@@ -100,16 +112,16 @@ class PremierleagueController @Inject()(action: DefaultControllerComponents,serv
     * for JsonAction[Place]:
     * curl -d '{"name":"Nuthanger Farm","location":{"lat" : 51.244031,"long" : -1.263224},"residents" : [{"name" : "Fiver","age" : 4,"role" : null},{"name" : "Bigwig","age" : 6, "role" : "Owsla"}]}' -H "Content-Type: application/json" http://localhost:9000/apirest/newsave ; echo
     *
-    * A way for process a Json request, using a base action, in this case we call a json action builder
-    * and use the specific BodyParser validator for the JSON, if something goes wrong the
-    * same Body parser Validator throw the BadRequest in other case an OK (200) of Response is get back
+    * A way for process a Json request, using a base action and  an specific BodyParser validator for the JSON,
+    * if something goes wrong the same Body parser Validator throw the BadRequest in other case an OK (200) of Response
+    * is returned.
     *
     * @see utilities.DefaultControllerComponents.jsonActionBuilder a reference to JsonActionBuilder
     *      a builder of actions that process POST request
     * @return Result (Ok/BadRequest)
     */
 
-  def savePlaceConcise = action.jsonActionBuilder(validateJson[Place]) { request =>
+  def savePlaceConcise = Action(validateJson[Place]) { request =>
     // `request.body` contains a fully validated `Place` instance.
     val place = request.body
 
