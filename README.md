@@ -10,8 +10,8 @@ We have implemented here:
 
 * Rest Service with normal actions
 * Rest Services with action builder [processing http resquest with JSON][modifiying request and response][parsing body]
-* Implementing logging in all activities
-* Error hanldling of request/response and the processing them self
+* Implementing logging in all activities.
+* Error hanldling of request/response.
 
 **Every package in the source code have a file(package.txt) that explain the core of 
 the specific package.**  
