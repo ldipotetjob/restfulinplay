@@ -1,20 +1,12 @@
-package ldg.com.implicitdb.conversions
+package com.ldg.implicitconversions
 
-  /**
-    *  Provides all implicit conversion needed for the operations related with Cassandra
-    *
-    *  implicit def resultSetFutureToScala => this type is important if we want to access in asynchronous mode
-    *  to cassandra Data because datastax drivers works with ResultSetFuture and Scala Future works with
-    *  ResultSet that is an Iterable.
-    *
-    *  =======================================================
-    *
-    *  implicit def rowToMatch => this is the core of our operation because we will receive always a Row of something
-    *  and the transform it in the model that we want. So each model must have its specific implicit.
-    *
-    *  =========================================================
-    *
-    *  implicit class ListOf[A] => this implicit is valid for all of collection, you can think of it more or less
-    *  as Ascription. We have a List[A] => List[B] an of course we must have an implicit conversion A => B
-    *
-    */
+=== object ImplicitConvertions ===>
+
+    - Provides all implicit conversion needed for parse the JSON involved in POST request
+    - Some validators need Reads[T] that is the reason of Reads[Match]
+
+=== object MyOwnConversions ===>
+
+    - Show different way for create converter: JsValue => Model [Readers]
+    - Show different way for create converter: Model => JsValue [Writes]
+    - Show how mix Reads and Writes for implicit conversion: Format[Place] = Json.format[Place]

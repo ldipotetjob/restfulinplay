@@ -1,20 +1,6 @@
-package ldg.com.implicitdb.conversions
+package views
 
-  /**
-    *  Provides all implicit conversion needed for the operations related with Cassandra
-    *
-    *  implicit def resultSetFutureToScala => this type is important if we want to access in asynchronous mode
-    *  to cassandra Data because datastax drivers works with ResultSetFuture and Scala Future works with
-    *  ResultSet that is an Iterable.
-    *
-    *  =======================================================
-    *
-    *  implicit def rowToMatch => this is the core of our operation because we will receive always a Row of something
-    *  and the transform it in the model that we want. So each model must have its specific implicit.
-    *
-    *  =========================================================
-    *
-    *  implicit class ListOf[A] => this implicit is valid for all of collection, you can think of it more or less
-    *  as Ascription. We have a List[A] => List[B] an of course we must have an implicit conversion A => B
-    *
-    */
+  ========================= twirl templates ===============
+
+  The problem that we have here is we want that we want that our template files be used as the body
+  of our HTTP responses, so we need to define how to make a Play result from a template rendering result.

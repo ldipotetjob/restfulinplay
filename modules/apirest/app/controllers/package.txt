@@ -1,24 +1,32 @@
-package ldg.com.implicitdb.conversions
+package controller
 
-modules/apirest => this is the core of the project. It implements rest services in PlayFramework.
+=== class AsyncController ===> explained by the controller itself. Explained every action in
+                               comments at routes files: root_project/modules/apirest/conf/apirest.routes
+=== class CountController ===> idem. at explanation of AsyncController
+=== class HomeController ===> idem. at explanation of AsyncController
+=== class PremierleagueController ===> Explained every action in comments at routes
+                                       files: root_project/modules/apirest/conf/apirest.routes
 
+    class PremierleagueController ===>
 
+        @Inject()(action: DefaultControllerComponents,services:TDataServices) ===>
 
-  /**
-    *  Provides all implicit conversion needed for the operations related with Cassandra
-    *
-    *  implicit def resultSetFutureToScala => this type is important if we want to access in asynchronous mode
-    *  to cassandra Data because datastax drivers works with ResultSetFuture and Scala Future works with
-    *  ResultSet that is an Iterable.
-    *
-    *  =======================================================
-    *
-    *  implicit def rowToMatch => this is the core of our operation because we will receive always a Row of something
-    *  and the transform it in the model that we want. So each model must have its specific implicit.
-    *
-    *  =========================================================
-    *
-    *  implicit class ListOf[A] => this implicit is valid for all of collection, you can think of it more or less
-    *  as Ascription. We have a List[A] => List[B] an of course we must have an implicit conversion A => B
-    *
-    */
+          action and services parameters are injected and in case of services it applied eager bindings
+          to TDataServices and in this case services.DataServices is injected as a parameter.
+
+        def insertMatchWithCustomized = action.jsonActionBuilder ===>
+
+          process a POST request with a customized JSON body so the JSON sent by the request MUST
+          be considered in the action builder validation(com.ldg.basecontrollers.JsonActionBuilder)
+
+        def insertMatchGeneric = JsonAction[Match](matchReads) ===>
+
+          process a POST request with a GENERIC JSON body so the JSON sent by the request ONLY NEED a
+          Readers implemented in the way: JsonAction[T](Reads[T]) so you can copy and paste this
+          Action Builder(com.ldg.basecontrollers.JsonAction) an use every where in the way tha we use here.
+
+        def getMatchGame = action.defaultActionBuilder ===> it is well explained in the controller
+
+        def save = action.defaultActionBuilder ===> it is well explained in the controller
+
+        def savePlaceConcise = Action(validateJson[Place]) ===> it is well explained in the controller

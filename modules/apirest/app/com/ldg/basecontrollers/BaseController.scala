@@ -36,7 +36,7 @@ class BaseController(action: DefaultControllerComponents) extends Controller{
     * supplied by the client and at the same time the content-type whit our custom messages and our specific
     * validations
     *
-    * This is a generic Action that let make a Customized Request Validation son it can be Used for any recuest
+    * This is a generic Action that let make a Customized Request Validation so it can be Used for any request
     * with a previous Reads Model implemented
     *
     * @param validator a reader that let you validate an specific json with its

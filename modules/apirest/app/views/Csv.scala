@@ -6,10 +6,8 @@
 package views
 
 /**
-  *
   * Our Template is NOT include in the common template formats
   * so we need to add support for our own format.
-  *
   */
 import play.api.http.ContentTypeOf
 import play.api.mvc.Codec
@@ -54,6 +52,7 @@ object Csv {
 
   def empty: Csv = new Csv("")
 }
+
 object CsvFormat extends Format[Csv] {
   def raw(text: String): Csv = Csv(text)
   def escape(text: String): Csv = {

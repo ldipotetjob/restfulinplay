@@ -32,8 +32,6 @@ trait ContentNegotiation {
     }
   }
 
-
-
   /**
     *
     * Serializes the provided value according to the Accept headers of the (implicitly) provided request
@@ -56,6 +54,9 @@ trait ContentNegotiation {
     }
   }
 
+  /**
+    *  Select the right csv template that must be returned with the response
+    */
 
   def selecTemplate[T](genericSeq:Seq[Any])(implicit tag: ClassTag[T]) ={
 
@@ -63,7 +64,7 @@ trait ContentNegotiation {
 
       /**
         * This match can NOT be generic. For every kind of model we need an specific template.
-        * So you should have so many "Templates" and so many "Case" as report you need.
+        * So you should have so many "Templates" and so many "Case" as report as you need.
         * Now we have only views.csv.premier In real case you can have as many template as you need.
         *
         */
@@ -79,6 +80,14 @@ trait ContentNegotiation {
     }
   }
 
+  /**
+    * Extractor method that let to it's caller  check the type of collection
+    *
+    * @param list sequence of T element
+    * @param tag for preventing type erasure
+    * @tparam T kind of element
+    * @return
+    */
   def extractRightCollection[T](list: Seq[Any])(implicit tag: ClassTag[T]): Option[T] =
     list.headOption match {
 
@@ -87,10 +96,14 @@ trait ContentNegotiation {
       case _ => Option.empty[T]
     }
 
-  //TODO Solve the following warning
-    /*
-    [info] application - Correct Content-type in Header: text/plain
-    [warn] p.c.s.n.NettyModelConversion - Content-Type set both in header (text/csv) and attached to entity (text/csv), ignoring content type from entity. To remove this warning, use Result.as(...) to set the content type, rather than setting the header manually.
-    */
-
+    /**
+      * TODO warning!!
+      *
+      * [info] application - Correct Content-type in Header: text/plain
+      * [warn] p.c.s.n.NettyModelConversion - Content-Type set both in header (text/csv) and
+      * attached to entity (text/csv),ignoring content type from entity.
+      * To remove this warning, use Result.as(...) to set the content type, rather than
+      * setting the header manually.
+      *
+      */
 }

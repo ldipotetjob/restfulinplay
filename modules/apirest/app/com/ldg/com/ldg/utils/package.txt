@@ -1,20 +1,13 @@
-package ldg.com.implicitdb.conversions
+package com.ldg.utils
 
-  /**
-    *  Provides all implicit conversion needed for the operations related with Cassandra
-    *
-    *  implicit def resultSetFutureToScala => this type is important if we want to access in asynchronous mode
-    *  to cassandra Data because datastax drivers works with ResultSetFuture and Scala Future works with
-    *  ResultSet that is an Iterable.
-    *
-    *  =======================================================
-    *
-    *  implicit def rowToMatch => this is the core of our operation because we will receive always a Row of something
-    *  and the transform it in the model that we want. So each model must have its specific implicit.
-    *
-    *  =========================================================
-    *
-    *  implicit class ListOf[A] => this implicit is valid for all of collection, you can think of it more or less
-    *  as Ascription. We have a List[A] => List[B] an of course we must have an implicit conversion A => B
-    *
-    */
+=== EagerBindings ===>
+
+Best practice: Define a trait for a component. So you have tha trait an the other class that extends/implement
+               that trait. Doing that you can different implementations as in our case:
+
+               - a real implementation: services.DataServices
+               - mock implementation: com.ldg.play.test.mockDataServices
+
+root/class Module ==> another example of Eager binding in this case as a Singleton.
+
+ref.:https://playframework.com/documentation/2.6.x/ScalaDependencyInjection#eager-bindings
