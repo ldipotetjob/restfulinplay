@@ -1,6 +1,23 @@
 package views
 
-  ========================= twirl templates ===============
+  =============================== twirl templates ===============
 
-  The problem that we have here is we want that we want that our template files be used as the body
-  of our HTTP responses, so we need to define how to make a Play result from a template rendering result.
+  The problem that we have here is:
+
+   ===> We want a template files to be used as the body of our HTTP responses, so we need to define
+        how to make a Play result from a template rendering result. So what we need for do that:
+
+        - Implement a Format:
+            class Csv
+            object Csv
+            object CsvFormat
+
+            All necessary info commented on view.Cvs
+
+   ====> We need to asociate the file extension to the format:
+
+        - rot_project/scalaplay/modules/apirest/build.sbt ===>
+
+                TwirlKeys.templateFormats += ("csv" -> "views.CsvFormat")
+
+   ref.: https://www.playframework.com/documentation/2.6.x/ScalaCustomTemplateFormat
