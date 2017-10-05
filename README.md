@@ -13,8 +13,7 @@ We have implemented here:
 * Implementing logging in all activities.
 * Error hanldling of request/response.
 
-**Every package in the source code have a file(package.txt) that explain the core of 
-the specific package.**  
+**Each package in the source code has a file (package.txt) that explains the fundamentals of that specific package.**  
 
 Enjoy :+1:
 
