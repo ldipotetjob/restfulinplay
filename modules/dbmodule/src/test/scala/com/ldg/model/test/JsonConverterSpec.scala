@@ -16,7 +16,7 @@ import com.ldg.model.Match
   *
   */
 
-class jsonConverterTest extends FlatSpec with Matchers {
+class JsonConverterSpec extends FlatSpec with Matchers {
 
 //TODO Test for convertion of Place Object
 

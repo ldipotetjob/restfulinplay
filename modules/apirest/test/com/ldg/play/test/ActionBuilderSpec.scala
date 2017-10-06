@@ -21,7 +21,7 @@ import com.ldg.model.Match
 
 
 
-class PremierLeagueControllerTest extends FlatSpec with Matchers with MockitoSugar {
+class ActionBuilderSpec extends FlatSpec with Matchers with MockitoSugar {
 
 
   val mockDataServices = mock[DataServices]

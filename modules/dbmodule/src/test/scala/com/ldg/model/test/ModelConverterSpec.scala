@@ -19,7 +19,7 @@ import play.api.libs.json._
   *
   */
 
-class modelConverterTest extends FlatSpec with Matchers{
+class ModelConverterSpec extends FlatSpec with Matchers{
 
   val jsonStringValue = """
   {
