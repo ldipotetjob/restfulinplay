@@ -84,7 +84,6 @@ class PremierControllerSpec extends FlatSpec with Matchers with MockitoSugar {
 
     val request = FakeRequest(GET, "/premier/matchs").withHeaders(("Accept","text/csv"),("Content-Type","text/plain"))
 
-    //the same stat:val result = call(TestPremierleagueController.getMatchGame(), request)
     val result = TestPremierleagueController.getMatchGame(request)
 
     val content = views.csv.premier(Seq(matchGame))

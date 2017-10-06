@@ -18,7 +18,7 @@ import com.ldg.implicitconversions.ImplicitConversions._
 import com.ldg.model._
 import services.TDataServices
 @Singleton
-class PremierleagueController @Inject()(action: DefaultControllerComponents,services:TDataServices) extends BaseController(action) with ContentNegotiation {
+class PremierleagueController @Inject()(action: DefaultControllerComponents,services:TDataServices) extends BaseController with ContentNegotiation {
 
   /**
     * for test this POST request
@@ -52,14 +52,12 @@ class PremierleagueController @Inject()(action: DefaultControllerComponents,serv
     * curl -d '{"date" : "1495502158120","season" : "MW 26","homeTeam" :{"name" : "Aston Villa","goals" : 3,"goalsPlayer" : {"Dean Saunders": ["44''", "66''"],"Garry Parker": ["78''"]}},"awayTeam" : {"name" : "Liverpool","goals" : 3,"goalsPlayer" : {"Mark Walters": ["43''"],"Ronnie Rosenthal": ["84''"],"John Williams": ["90''"]}}}'  -H "Content-Type: application/json" http://localhost:9000/apirest/premier/matchgame;echo
     *
     */
-
   /**
     *
     * matchReads: implicit Reads=> Reads[Match]
     * @see com.ldg.implicitconversions.ImplicitConvertions.matchReads
     *
     */
-
 
   def insertMatchGeneric = JsonAction[Match](matchReads){ implicit request =>
 
@@ -73,7 +71,9 @@ class PremierleagueController @Inject()(action: DefaultControllerComponents,serv
     *
     * for testing GET request:
     *
-    * curl -H "Content-Type: text/plain" http://localhost:9000/apirest/premier/matchs
+    * curl -H "Accept: application/json" -H "Content-Type: text/plain" http://localhost:9000/apirest/premier/matchs ; echo
+    *
+    * curl -H "Accept: text/csv" -H "Content-Type: text/plain" http://localhost:9000/apirest/premier/matchs ; echo
     *
     */
 

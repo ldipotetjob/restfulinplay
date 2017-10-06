@@ -13,7 +13,7 @@ import scala.concurrent.Future.{successful => successfuture}
 
 
 /**
-  * BaseController is the controller for all Actions in the project
+  * a Best Practice should be BaseController is the controller for all Actions in the project
   *
   * @see utilities.DefaultControllerComponents.jsonActionBuilder a reference to JsonActionBuilder
   *      a builder of actions that process customized POST request.
@@ -22,7 +22,8 @@ import scala.concurrent.Future.{successful => successfuture}
   *      a builder of actions that process GET/DELETE request.
   *
   */
-class BaseController(action: DefaultControllerComponents) extends Controller{
+class BaseController extends Controller{
+ // class BaseController(action: DefaultControllerComponents) extends Controller{
 
   def validateJson[A : Reads] = BodyParsers.parse.json.validate(
     _.validate[A].asEither.left.map(e => BadRequest(JsError.toJson(e)))

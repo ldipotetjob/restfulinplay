@@ -31,8 +31,9 @@ GET   /cmessage/:msg                controllers.AsyncController.custommessage(ms
 # An example Controller showing how create an Action from an ActionBuilder and how
 # implement of content-negotiation in playframework with its own request validations
 
-# pattern: curl -H "Content-Type: text/plain" scheme:[//[user[:password]@]host[:port]]/apirest/premier/matchs =>
-# example: curl -H "Content-Type: text/plain" http://localhost:9000/apirest/premier/matchs
+# pattern: curl -H "Accept: application/json" -H "Content-Type: text/plain" scheme:[//[user[:password]@]host[:port]]/apirest/premier/matchs =>
+# example: curl -H "Accept: application/json" -H "Content-Type: text/plain" http://localhost:9000/apirest/premier/matchs ; echo
+# example: curl -H "Accept: text/csv" -H "Content-Type: text/plain" http://localhost:9000/apirest/premier/matchs ; echo
 GET      /premier/matchs            controllers.PremierleagueController.getMatchGame
 
 GET     /assets/*file            controllers.Assets.versioned(path="/public", file: Asset)
