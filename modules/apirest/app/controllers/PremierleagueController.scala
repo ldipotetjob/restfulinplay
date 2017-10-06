@@ -13,7 +13,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import com.ldg.basecontrollers.{BaseController, ContentNegotiation, DefaultControllerComponents}
 import com.ldg.implicitconversions._
 import com.ldg.implicitconversions.MyOwnConversions._
-import com.ldg.implicitconversions.ImplicitConvertions._
+import com.ldg.implicitconversions.ImplicitConversions._
 
 import com.ldg.model._
 import services.TDataServices

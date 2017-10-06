@@ -6,7 +6,7 @@ package com.ldg.model.test
 
 import com.ldg.model.StatsTypes._
 import com.ldg.model.TestMatchObject._
-import com.ldg.implicitconversions.ImplicitConvertions._
+import com.ldg.implicitconversions.ImplicitConversions._
 
 
 import org.scalatest.{Matchers, FlatSpec}

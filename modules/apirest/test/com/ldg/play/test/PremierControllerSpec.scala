@@ -16,12 +16,12 @@ import play.api.i18n._
 import services.DataServices
 
 
-import com.ldg.implicitconversions.ImplicitConvertions._
+import com.ldg.implicitconversions.ImplicitConversions._
 import com.ldg.model.Match
 
 
 
-class ActionBuilderSpec extends FlatSpec with Matchers with MockitoSugar {
+class PremierControllerSpec extends FlatSpec with Matchers with MockitoSugar {
 
 
   val mockDataServices = mock[DataServices]
@@ -50,7 +50,7 @@ class ActionBuilderSpec extends FlatSpec with Matchers with MockitoSugar {
     *
     */
 
-  "Request with Content-Type:text/plain and application/json" should "return a json file Response with a 200 Code" in {
+  "Request /GET/ with Content-Type:text/plain and application/json" should "return a json file Response with a 200 Code" in {
 
 
       when(mockDataServices.modelOfMatchPremier("football.txt")) thenReturn Seq(matchGame)
@@ -78,12 +78,13 @@ class ActionBuilderSpec extends FlatSpec with Matchers with MockitoSugar {
     *
     */
 
-  "Request with Content-Type:text/plain and txt/csv" should "return a csv file Response with a 200 Code" in {
+  "Request /GET/ with Content-Type:text/plain and txt/csv" should "return a csv file Response with a 200 Code" in {
 
     when(mockDataServices.modelOfMatchPremier("football.txt")) thenReturn Seq(matchGame)
 
     val request = FakeRequest(GET, "/premier/matchs").withHeaders(("Accept","text/csv"),("Content-Type","text/plain"))
 
+    //the same stat:val result = call(TestPremierleagueController.getMatchGame(), request)
     val result = TestPremierleagueController.getMatchGame(request)
 
     val content = views.csv.premier(Seq(matchGame))

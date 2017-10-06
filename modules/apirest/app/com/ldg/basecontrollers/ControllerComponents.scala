@@ -12,7 +12,7 @@ import javax.inject._
 
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
-import com.ldg.implicitconversions.ImplicitConvertions._
+import com.ldg.implicitconversions.ImplicitConversions._
 
 import scala.util.Try
 /**

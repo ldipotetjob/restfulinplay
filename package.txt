@@ -35,14 +35,16 @@ Play Framework in a nutshell with a deep proof of concept
 
       Aspect tested:
 
-       - Implicit convertions.
-       - Controllers and actions.
+       - Implicit conversion: modules/dbmodule/com.ldg.model.test
+       - Controllers and actions: modules/apirest/com.ldg.play.test
 
        Style: FlatSpec
        ref.: http://www.scalatest.org/at_a_glance/FlatSpec
 
        Anatomy of a Playframework project:
        https://www.playframework.com/documentation/2.6.x/Anatomy
+
+       https://www.jetbrains.com/help/idea/viewing-code-coverage-results.html
 
 ===> Minimal requirement for run the project:
 

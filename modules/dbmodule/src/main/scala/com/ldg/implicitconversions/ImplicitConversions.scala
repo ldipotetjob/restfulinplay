@@ -8,7 +8,7 @@ import com.ldg.model.Match
 import com.ldg.model.Team.{AwayTeam, HomeTeam}
 import play.api.libs.json.{Format, Json, Reads}
 
-object ImplicitConvertions {
+object ImplicitConversions {
 
   implicit val awayTeamFormat: Format[AwayTeam] = Json.format[AwayTeam]
   implicit val homeTeamFormat: Format[HomeTeam] = Json.format[HomeTeam]

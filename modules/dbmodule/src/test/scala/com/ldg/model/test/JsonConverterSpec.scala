@@ -6,7 +6,7 @@ package com.ldg.model.test
 
 import com.ldg.model.StatsTypes._
 import org.scalatest.{FlatSpec, Matchers}
-import com.ldg.implicitconversions.ImplicitConvertions._
+import com.ldg.implicitconversions.ImplicitConversions._
 import play.api.libs.json._
 import com.ldg.model.Match
 
