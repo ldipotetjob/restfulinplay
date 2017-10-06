@@ -28,10 +28,14 @@ class PremierActionsSpec extends FlatSpec with Matchers {
   implicit lazy val materializer: Materializer = app.materializer
 
   /**
+    * Test JsonActionBuilder:
     *
-    * Testing right response for acceptance of application/header
-    * Request: plain text
-    * Response: a Json
+    * validate: content-type
+    *           jsonBody must be specific Model
+    *
+    * @see com.ldg.basecontrollers.JsonActionBuilder
+    *
+    * Request: application/json
     *
     */
 
