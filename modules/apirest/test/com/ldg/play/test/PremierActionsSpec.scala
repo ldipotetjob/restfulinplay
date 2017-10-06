@@ -45,7 +45,7 @@ class PremierActionsSpec extends FlatSpec with Matchers {
 
     def action = jsonActionBuilder{ implicit request =>
 
-      val matchGame: Match = request.body.asJson.get.as[Match]
+      //val matchGame: Match = request.body.asJson.get.as[Match]
 
       new Status(OK)
     }
