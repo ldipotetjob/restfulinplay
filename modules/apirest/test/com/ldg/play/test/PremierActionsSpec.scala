@@ -9,7 +9,7 @@ import play.api.libs.json._
 import play.api.test.Helpers._
 
 import scala.io.Source
-import com.ldg.basecontrollers.{DefaultActionBuilder, DefaultControllerComponents, JsonActionBuilder}
+import com.ldg.basecontrollers.{DefaultActionBuilder,JsonActionBuilder}
 import com.ldg.implicitconversions.ImplicitConversions._
 import com.ldg.model.Match
 import play.api.http.Status.OK
