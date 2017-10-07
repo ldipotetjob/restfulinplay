@@ -40,23 +40,27 @@ This project is a proof of concept about the basic architeture of a Play Framewo
 
 You have several rest sevices to call:
 
-This file has several example about how call all services exposed in this project.
-The file has this structure:
+This is [the route file](https://github.com/ldipotetjob/restfulinplay/blob/master/modules/apirest/conf/apirest.routes) and it has commented several examples on how call all services exposed in this project.
+The commented examples has the following structure:
 
 \# pattern: 
+
 \# example: 
 
-You can paste the \# example: in your **terminal** in case of **curl** o in your **browser** in case **http request**
+You can paste the \# example: in your **terminal** in case of **curl** o in your **browser** in case **http**
 
 
-### Launching ###
+### Testing ###
+
+* go to root project
+* type in terminal: sbt test
 
 
 The basic information is [here on gitHub](https://github.com/ldipotetjob/restfulinplay/blob/master/package.txt) and contains the main project information 
 
 **Each package in the source code has a file (package.txt) that explains the fundamentals of that specific package.**  
 
-Enjoy :+1:
+
 
 
 
