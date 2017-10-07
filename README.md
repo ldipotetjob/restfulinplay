@@ -24,12 +24,11 @@ This project is a proof of concept about the basic architeture of a Play Framewo
     
 ### Requirements, Installation and Launching ###
 
+Requirements
 
-For any project in this repository you will need to install the following softwares:
-
-* jdk 1.7+
-* scala 2.11.x
-* sbt 0.13.11+
+* jdk 1.7+ -> how check java version: java -version
+* scala 2.11.x -> hiw check scala version: scala -version
+* sbt 0.13.11+ -> version: sbt about
 
 We have implemented here:
 
@@ -37,6 +36,7 @@ We have implemented here:
 * Rest Services with action builder [processing http resquest with JSON][modifiying request and response][parsing body]
 * Implementing logging in all activities.
 * Error hanldling of request/response.
+
 
 **Each package in the source code has a file (package.txt) that explains the fundamentals of that specific package.**  
 
