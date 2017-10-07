@@ -32,6 +32,22 @@ This project is a proof of concept about the basic architeture of a Play Framewo
 
 ### Installation ###
 
+* clone repository
+* go to root project
+* type in terminal: sbt run
+
+### Launching ###
+
+You have several rest sevices to call:
+
+This file has several example about how call all services exposed in this project.
+The file has this structure:
+
+\# pattern: 
+\# example: 
+
+You can paste the \# example: in your **terminal** in case of **curl** o in your **browser** in case **http request**
+
 
 ### Launching ###
 
