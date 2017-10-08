@@ -9,6 +9,9 @@ import play.api.mvc._
 
 import scala.reflect.ClassTag
 
+//TODO: Internationalization of messages
+//TODO: ErrorHandler
+//TODO: LogHandler
 
 trait ContentNegotiation {
 
@@ -28,7 +31,7 @@ trait ContentNegotiation {
     render {
       case Accepts.Json() => Ok(Json.obj("status" ->"OK", "message" -> Json.toJson(content) )).withHeaders(CONTENT_TYPE->JSON)
       case AcceptsCSV() => Ok( selecTemplate[C](content)).withHeaders(CONTENT_TYPE->"text/csv")
-      case _ => NotAcceptable("The Accept value can not be served, only serve text/csv or application/json")
+      case _ => NotAcceptable("Accept value can not be served, only serve text/csv or application/json")
     }
   }
 
@@ -50,7 +53,7 @@ trait ContentNegotiation {
     render {
       case Accepts.Json() => Ok(Json.obj("status" ->"OK", "message" -> Json.toJson(content) )).withHeaders(CONTENT_TYPE->JSON)
       case AcceptTextPlain() => Ok("Process Done").withHeaders(CONTENT_TYPE->"text/plain")
-      case _ => NotAcceptable("The Accept value can not be served, only serve txt/csv or application/json")
+      case _ => NotAcceptable("Accept value can not be served, only serve txt/csv or application/json")
     }
   }
 

@@ -33,7 +33,9 @@ sealed trait ControllerComponents {
   //def executionContext: scala.concurrent.ExecutionContext
 }
 
-//TODO: internationalization of messages
+//TODO: Internationalization of messages
+//TODO: ErrorHandler
+//TODO: LogHandler
 
   /**
     * Action builder for simple Request.
@@ -61,6 +63,7 @@ sealed trait ControllerComponents {
           Results.Forbidden(Json.obj("status" ->"KO", "message" -> s"Content-Type is: $ownContentType and must be: text/plain "))
         }
         case None => Future.successful {
+          Logger.error("Bad request, doesn't has Content-Type")
           //the client has sent a request without Content-Type so we build a Response Code 400
           Results.BadRequest(Json.obj("status" ->"KO", "message" -> "Bad request, doesn't has Content-Type"))
         }
@@ -118,10 +121,11 @@ class JsonActionBuilder extends ActionBuilder[Request] {
 
       case Some(_) => Future.successful {
         val ownContentType: String = request.contentType.getOrElse("Unespecified Content-Type")
-        Logger.error(s"WRONG Content-Type in Header, must be:text/plain and it is: $ownContentType")
+        Logger.error(s"WRONG Content-Type in Header, must be: application/json and it is: $ownContentType")
         Results.Forbidden(Json.obj("status" -> "KO", "message" -> s"Content-Type is: $ownContentType and must be: application/json "))
       }
       case None => Future.successful {
+        Logger.error("Bad request, doesn't has Content-Type")
         //the client has sent a request without Content-Type so we build a Response Code 400
         Results.BadRequest(Json.obj("status" -> "KO", "message" -> "Bad request, doesn't has Content-Type"))
       }
