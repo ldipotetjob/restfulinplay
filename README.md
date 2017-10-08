@@ -56,14 +56,12 @@ You can paste the \# example: in your **terminal** in case of **curl** o in your
 * type in terminal: sbt test
 
 
-The basic information is [here on gitHub](https://github.com/ldipotetjob/restfulinplay/blob/master/package.txt) and contains the main project information 
+The basic information is [here on gitHub](https://github.com/ldipotetjob/restfulinplay/blob/master/package.txt) and contains the main project information.
+
 
 **Each package in the source code has a file (package.txt) that explains the fundamentals of that specific package.**  
-
-
-
-
-
+<br>
+<br>
+<br>
 https://mojitoverdeintw.blogspot.com 
 
-https://mojitoverde.blogspot.com
