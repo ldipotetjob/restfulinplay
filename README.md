@@ -5,7 +5,7 @@
 
 # Implementing Restful services in scala ecosystem with Play Framework #
 
-This project is a proof of concept about a basic architeture of a Play Framework multimodule project.
+This project is a proof of concept about the basic architecture of a Play Framework multi module project.
 
 ## What will you find here? ##
 
