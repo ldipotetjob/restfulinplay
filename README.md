@@ -9,19 +9,19 @@ This project is a proof of concept about the basic architecture of a Play Framew
 
 ## What will you find here? ##
 
-* A basic multimodule architecture that will let you implement and process Restful WebServices in Scala programming language, it can be a template for any multimodule Play Framework project.
+* A basic multi module architecture that will let you implement and process Restful WebServices in Scala programming language, it can be a template for any multi module Play Framework project.
 
 * An implementation of HTTP protocol Content-Negotiation:
     * Accept
     * Content-Type
-    * You can add here any other header fields involved in content-negotiation
+    * You can add here any other header fields involved in content-negotiation.
     
 * How generate CSV response depending of Content-Negotiation:
     * Implementing custom template using twirl engine for return a CSV file depending of the Accept header field.
-    * Implement at the same time json responses
+    * Implement at the same time json responses.
     
 * How implement TDD in our development process:
-    * We have create the base of Spec with FlatSpec style: We have NOT covered the whole lines of code but we have create enoguh test suites for give an idea of how to make with the rest. We have covered at least Controllers, action,implicit conversions and services. 
+    * We have create the base of Spec with FlatSpec style: We have NOT covered the whole lines of code but we have created enoguh test suites for give you an idea of how to make with the rest. We have covered at least Controllers, action,implicit conversions and services. 
     
 ## What you will not find here, but you should ##
 
