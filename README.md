@@ -44,6 +44,8 @@ This project is a proof of concept about a basic architeture of a Play Framework
 * go to root project
 * type in terminal: sbt run
 
+video: [running sbt](https://youtu.be/AWP7ODqjYmI)
+
 ### Launching ###
 
 You have several rest sevices to call:
@@ -63,6 +65,7 @@ You can paste the \# example: in your **terminal** in case of **curl** o in your
 * go to root project
 * type in terminal: sbt test
 
+video: [running test](https://youtu.be/s-jO1PFaUR4)
 
 The basic information is [here on gitHub](https://github.com/ldipotetjob/restfulinplay/blob/master/package.txt) and contains the main project information.
 
