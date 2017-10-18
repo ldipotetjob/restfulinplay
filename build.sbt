@@ -13,7 +13,7 @@ scalaVersion := "2.11.7"
 
 lazy val restfulapi = (project in file("modules/apirest")).enablePlugins(PlayScala).dependsOn(util).settings(scalaVersion:="2.11.7",
   libraryDependencies ++= Seq(
-    cache,
+    cache,filters,
     "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.1" % Test,
     "org.mockito" % "mockito-core" % "2.5.0" % "test"
   )
@@ -26,3 +26,5 @@ lazy val util = (project in file("modules/dbmodule")).settings(scalaVersion:="2.
     scalatest % "test"
   )
 )
+
+lazy val swaggerapidoc = (project in file("modules/apidoc"))
