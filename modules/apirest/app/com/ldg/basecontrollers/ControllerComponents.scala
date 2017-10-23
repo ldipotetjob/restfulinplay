@@ -48,7 +48,9 @@ sealed trait ControllerComponents {
 
   class DefaultActionBuilder extends ActionBuilder[Request] {
     def invokeBlock[A](request: Request[A], block: (Request[A]) => Future[Result]) = {
-      request.contentType match {
+
+      //request.contentType match {
+      request.contentType.fold{Some("text/plain")}{content=>Some(content)} match {
 
         case Some("text/plain") => Logger.info("Simple HttpResquest")
           Logger.info("Correct Content-type in Header: text/plain")
@@ -62,11 +64,12 @@ sealed trait ControllerComponents {
           Logger.error(s"WRONG Content-Type in Header, must be:text/plain and it is: $ownContentType")
           Results.Forbidden(Json.obj("status" ->"KO", "message" -> s"Content-Type is: $ownContentType and must be: text/plain "))
         }
+          /*
         case None => Future.successful {
           Logger.error("Bad request, doesn't has Content-Type")
           //the client has sent a request without Content-Type so we build a Response Code 400
           Results.BadRequest(Json.obj("status" ->"KO", "message" -> "Bad request, doesn't has Content-Type"))
-        }
+        }*/
       }
     }
   }

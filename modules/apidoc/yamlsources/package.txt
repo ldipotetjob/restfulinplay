@@ -1,0 +1,16 @@
+Generating Documentation:
+
+=============  Documenting Api with Swagger   ====================
+
+==> Problems NOT solved by SWAGGER ===>
+
+    - Can NOT modify Conten-type so you can modify the accept by the api and it will imply that
+      you can selet the content-type response. BUT if you want to set a DEFAULT content-type in your
+      request it is NOT possible.
+
+==> This is de way how you can solve Maps in swagger ==>
+
+GoalsPlayer:
+    type: object
+    additionalProperties:
+      $ref: "#/definitions/Minutes_Goals"
