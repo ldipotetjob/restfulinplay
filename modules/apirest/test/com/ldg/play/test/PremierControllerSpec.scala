@@ -13,7 +13,7 @@ import controllers.PremierleagueController
 import org.scalatest.{FlatSpec, Matchers}
 import play.api.test.Helpers._
 import play.api.i18n._
-import services.DataServices
+import services.TDataServices
 
 
 import com.ldg.implicitconversions.ImplicitConversions._
@@ -24,7 +24,7 @@ import com.ldg.model.Match
 class PremierControllerSpec extends FlatSpec with Matchers with MockitoSugar {
 
 
-  val mockDataServices = mock[DataServices]
+  val mockDataServices = mock[TDataServices]
   val mockDefaultControllerComponents = mock[DefaultControllerComponents]
 
   val mockActionBuilder = new JsonActionBuilder()
@@ -50,12 +50,13 @@ class PremierControllerSpec extends FlatSpec with Matchers with MockitoSugar {
     *
     */
 
-  "Request /GET/ with Content-Type:text/plain and application/json" should "return a json file Response with a 200 Code" in {
-
+  "Request /GET/ with Content-Type:text/plain and application/json" should
+    "return a json file Response with a 200 Code" in {
 
       when(mockDataServices.modelOfMatchPremier("football.txt")) thenReturn Seq(matchGame)
 
-      val request = FakeRequest(GET, "/premier/matchs").withHeaders(("Accept","application/json"),("Content-Type","text/plain"))
+      val request = FakeRequest(GET, "/premier/matchs")
+        .withHeaders(("Accept","application/json"),("Content-Type","text/plain"))
 
       val result = TestPremierleagueController.getMatchGame(request)
 
@@ -98,5 +99,13 @@ class PremierControllerSpec extends FlatSpec with Matchers with MockitoSugar {
 
   }
 
+  "Request /GET with Content-Type:text/plain and WRONG Accept: image/jpeg" should
+    "return a json file Response with a 406 Code" in {
 
+    val result = TestPremierleagueController.getMatchGame
+
+      .apply(FakeRequest(GET, "/").withHeaders(("Accept","image/jpeg"),("Content-Type","text/plain")))
+
+    status(result) shouldBe NOT_ACCEPTABLE
+  }
 }

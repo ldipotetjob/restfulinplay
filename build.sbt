@@ -4,13 +4,6 @@ version := "1.0-SNAPSHOT"
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala).dependsOn(restfulapi,util).aggregate(restfulapi,util)
 scalaVersion := "2.11.7"
-
-/**
-  * .dependsOn(util). will let us use element from dbmodule into apirestmodule. Specifically some element and structure
-  * of the data model.
-  *
-  */
-
 lazy val restfulapi = (project in file("modules/apirest")).enablePlugins(PlayScala).dependsOn(util).settings(scalaVersion:="2.11.7",
   libraryDependencies ++= Seq(
     cache,filters,
@@ -26,5 +19,4 @@ lazy val util = (project in file("modules/dbmodule")).settings(scalaVersion:="2.
     scalatest % "test"
   )
 )
-
 lazy val swaggerapidoc = (project in file("modules/apidoc"))

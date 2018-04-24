@@ -48,7 +48,7 @@ object CSVUtilities {
     8 - matches.season
     */
 
-    val newCsvMap:Seq[Any] = lines.map(x=>{
+    val newCsvMap: Seq[Any] = lines.map(x=>{
       val arrstr= x.split("(,)(?=(?:[^}]|\\{[^{]*})*$)")
       //we can NOT use String Interpolation so we to save it to variables
       println(arrstr(2).length)
