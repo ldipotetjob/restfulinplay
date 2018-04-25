@@ -75,7 +75,7 @@ class PremierleagueController @Inject()(action: DefaultControllerComponents, ser
     */
 
   def getMatchGame = action.defaultActionBuilder { implicit request =>
-    def dataResults:Seq[Match] = services.modelOfMatchPremier("football.txt")
+    val dataResults:Seq[Match] = services.modelOfMatchPremier("football.txt")
     proccessContentNegotiation[Match](dataResults)
   }
 
