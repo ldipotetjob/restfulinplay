@@ -9,15 +9,11 @@ import play.api.libs.json._
 import play.api.test.Helpers._
 
 import scala.io.Source
-import com.ldg.basecontrollers.{BaseController, JsonActionBuilder}
-
+import com.ldg.basecontrollers.{BaseController, DefaultActionBuilder, JsonActionBuilder}
 import com.ldg.implicitconversions.ImplicitConversions.matchReads
-
 import com.ldg.model.Match
-
 import org.scalatest.mock.MockitoSugar
 import play.api.http.Status.OK
-
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.Results.Status
 
@@ -26,7 +22,7 @@ import play.api.mvc.Results.Status
 class PremierActionsSpec extends FlatSpec with Matchers  with MockitoSugar{
 
   val jsonActionBuilder = new JsonActionBuilder()
-
+  val defaultActionBuilder = new DefaultActionBuilder()
   val jsonGenericAction = new BaseController().JsonAction[Match](matchReads)
 
   val rightMatchJson = Source.fromURL(getClass.getResource("/rightmatch.json")).getLines.mkString
@@ -47,73 +43,107 @@ class PremierActionsSpec extends FlatSpec with Matchers  with MockitoSugar{
     *
     */
 
-  "Request /POST/ to JsonActionBuilder with Content-Type:application/json and a right Json body" should "return a 200 Code" in {
-
-    val request = FakeRequest(POST, "/").withJsonBody(Json.parse(rightMatchJson)).withHeaders(("Content-Type", "application/json"))
+  "JsonActionBuilder with Content-Type:application/json and a right Json body" should "return a 200 Code" in {
+    val request = FakeRequest(POST, "/")
+      .withJsonBody(Json.parse(rightMatchJson))
+      .withHeaders(("Content-Type", "application/json"))
 
     def action = jsonActionBuilder{ implicit request =>
-
       new Status(OK)
-
     }
 
     val result = call(action, request)
-
     status(result) shouldBe OK
-
   }
 
-  "Request /POST/ to JsonActionBuilder with Content-Type:application/json and a wrong Json body" should "return a 400 Code" in {
-
-    val request = FakeRequest(POST, "/").withJsonBody(Json.parse(wrongMatchJson)).withHeaders(("Content-Type", "application/json"))
+  "JsonActionBuilder with Wrong Content-Type and a right Json body" should "return a 403 Code" in {
+    val request = FakeRequest(POST, "/")
+      .withJsonBody(Json.parse(rightMatchJson))
+      .withHeaders(("Content-Type", "text/html"))
 
     def action = jsonActionBuilder{ implicit request =>
-
-      new Status(BAD_REQUEST)
-
+      new Status(OK)
     }
 
     val result = call(action, request)
-
-    status(result) shouldBe BAD_REQUEST
-
-  }
-
-
-  "Request /POST/ to JsonActionBuilder with WRONG Content-Type:plain/text and a right Json body" should "return a 400 Code" in {
-
-    val request = FakeRequest(POST, "/").withJsonBody(Json.parse(wrongMatchJson)).withHeaders(("Content-Type", "plain/text"))
-
-    def action = jsonActionBuilder{ implicit request =>
-
-      new Status(BAD_REQUEST)
-
-    }
-
-    val result = call(action, request)
-
     status(result) shouldBe FORBIDDEN
-
   }
 
-  "Request /POST/ to JsonAction with Content-Type:application/json - right Json body - " should "return a 200 Code" in {
+  "JsonActionBuilder with Content-Type:application/json and a wrong Json body" should "return a 400 Code" in {
+    val request = FakeRequest(POST, "/")
+      .withJsonBody(Json.parse(wrongMatchJson))
+      .withHeaders(("Content-Type", "application/json"))
 
-    val request = FakeRequest(POST, "/").withJsonBody(Json.parse(rightMatchJson)).withHeaders(("Content-Type", "application/json"))
+    def action = jsonActionBuilder{ implicit request =>
+      new Status(OK)
+    }
+
+    val result = call(action, request)
+    status(result) shouldBe BAD_REQUEST
+  }
+
+  "JsonAction with Content-Type:application/json and a wrong Json body" should "return a 400 Code" in {
+    val request = FakeRequest(POST, "/")
+      .withJsonBody(Json.parse(wrongMatchJson))
+      .withHeaders(("Content-Type", "application/json"))
 
     def action = jsonGenericAction{ implicit request =>
-
       new Status(OK)
-
     }
 
     val result = call(action, request)
-
-    status(result) shouldBe OK
-
+    status(result) shouldBe BAD_REQUEST
   }
 
+  "JsonAction with Content-Type:application/json and a right Json body" should "return a 200 Code" in {
+    val request = FakeRequest(POST, "/")
+      .withJsonBody(Json.parse(rightMatchJson))
+      .withHeaders(("Content-Type", "application/json"))
 
+    def action = jsonGenericAction{ implicit request =>
+      new Status(OK)
+    }
 
+    val result = call(action, request)
+    status(result) shouldBe OK
+  }
 
+  "JsonAction with Wrong Content-Type and a right Json body" should "return a 403 Code" in {
+
+    val request = FakeRequest(POST, "/")
+      .withJsonBody(Json.parse(rightMatchJson))
+      .withHeaders(("Content-Type", "text/html"))
+
+    def action = jsonGenericAction{ implicit request =>
+      new Status(OK)
+    }
+
+    val result = call(action, request)
+    status(result) shouldBe UNSUPPORTED_MEDIA_TYPE
+  }
+
+  "DefaultActionBuilder with Content-Type:text/plain and a right Json body" should "return a 200 Code" in {
+    val request = FakeRequest(GET, "/").withHeaders(("Accept","application/json"),("Content-Type", "text/plain"))
+
+    def action = defaultActionBuilder{ implicit request =>
+      new Status(OK)
+    }
+
+    val result = call(action, request)
+    status(result) shouldBe OK
+  }
+
+  "DefaultActionBuilder with wrong Content-Type:application/json " should "return a 403 Code" in {
+    val request = FakeRequest(GET, "/").withHeaders(("Accept","application/json"),("Content-Type", "application/json"))
+
+    def action = defaultActionBuilder{ implicit request =>
+      new Status(OK)
+    }
+
+    val result = call(action, request)
+    status(result) shouldBe FORBIDDEN
+  }
 
 }
+
+

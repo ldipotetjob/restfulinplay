@@ -18,13 +18,8 @@ import com.ldg.implicitconversions.ImplicitConversions._
 import com.ldg.model._
 import services.TDataServices
 
-//TODO: Internationalization of messages
-//TODO: ErrorHandler
-//TODO: LogHandler
-
-
 @Singleton
-class PremierleagueController @Inject()(action: DefaultControllerComponents,services:TDataServices) extends BaseController with ContentNegotiation {
+class PremierleagueController @Inject()(action: DefaultControllerComponents, services: TDataServices) extends BaseController with ContentNegotiation {
 
   /**
     * for test this POST request
@@ -47,7 +42,6 @@ class PremierleagueController @Inject()(action: DefaultControllerComponents,serv
 
 
     def insertMatchWithCustomized = action.jsonActionBuilder{ implicit request =>
-
     val matchGame: Match = request.body.asJson.get.as[Match]
       processContentNegotiationForJson[Match](matchGame)
   }
@@ -66,11 +60,8 @@ class PremierleagueController @Inject()(action: DefaultControllerComponents,serv
     */
 
   def insertMatchGeneric = JsonAction[Match](matchReads){ implicit request =>
-
     val matchGame: Match = request.body.asJson.get.as[Match]
-
     processContentNegotiationForJson[Match](matchGame)
-
   }
 
   /**
@@ -84,11 +75,8 @@ class PremierleagueController @Inject()(action: DefaultControllerComponents,serv
     */
 
   def getMatchGame = action.defaultActionBuilder { implicit request =>
-
     def dataResults:Seq[Match] = services.modelOfMatchPremier("football.txt")
-
     proccessContentNegotiation[Match](dataResults)
-
   }
 
   /**
@@ -128,11 +116,7 @@ class PremierleagueController @Inject()(action: DefaultControllerComponents,serv
     */
 
   def savePlaceConcise = Action(validateJson[Place]) { request =>
-    // `request.body` contains a fully validated `Place` instance.
     val place = request.body
-
     new Status(200)(Json.obj("status" ->"OK", "message" -> ("Place '"+place.name+"' saved.") ))
-
   }
-
 }
