@@ -1,14 +1,14 @@
 package com.ldg.play.test
 
 import akka.stream.Materializer
-import org.scalatest.mock.MockitoSugar
+
 import org.scalatest.{FlatSpec, Matchers}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 
 import play.api.inject.guice.GuiceApplicationBuilder
 
-class PremierRoutesSpec extends FlatSpec with Matchers with MockitoSugar {
+class PremierRoutesSpec extends FlatSpec with Matchers {
 
   val app: play.api.Application = new GuiceApplicationBuilder().build()
   implicit lazy val materializer: Materializer = app.materializer
