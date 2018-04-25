@@ -348,6 +348,7 @@
 3,"{'Dane Whitehouse':' 69'' ','Brian Deane':' 75'' ','Adrian Littlejohn':' 87'' '}","Sheff Utd",733002300000,1,"{'John Williams':' 17'' '}","Coventry City","MW 31"
 0,,"Ipswich Town",733001400000,3,"{'Stuart Barlow':' 18'' ','Matt Jackson':' 49'' ','Tony Cottee':' 66'' '}","Everton","MW 31"
 1,"{'Mal Donaghy':' 53'' ','Tony Cascarino':' 88'' '}","Chelsea",733002300000,1,"{'David Wetherall':' 43'' '}","Leeds United","MW 31"
+<<<<<<< HEAD
 0,,"Arsenal",733003200000,0,,"Manchester United","MW 31"
 0,,"Aston Villa",733002300000,1,"{'John Polston':' 81'' '}","Norwich City","MW 31"
 3,"{'Stuart Ripley':' 23'' ','Kevin Moran':' 55'' ','Mark Atkins':' 65'' '}","Blackburn Rovers",733002300000,0,,"Queens Park Rangers","MW 31"
@@ -498,3 +499,5 @@
 1,"{'Tony Cascarino':' 23'' '}","Chelsea",746909100000,1,"{'Teddy Sheringham':' 85'' (pen) '}","Tottenham Hotspur","MW 3"
 0,,"Ipswich Town",747756000000,4,"{'Ian Wright':' 30'' ','Kevin Campbell':' 38'', 55'', 64'' '}","Arsenal","MW 4"
 0,,"Coventry City",747756000000,0,,"Aston Villa","MW 4"
+=======
+>>>>>>> 1f369b95c963d49d9a27c8bc6cd1d100d36fea23
