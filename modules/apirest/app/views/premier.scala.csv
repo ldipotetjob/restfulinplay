@@ -6,5 +6,5 @@
 
 @(matches: Seq[com.ldg.model.Match])"homeTeamName","homeTeamGoals","awayTeamName","awayTeamGoals","season","date"
 @for(matchgame <- matches) {
-"@matchgame.homeTeam.name","matchgame.homeTeam.goals","@matchgame.awayTeam.name","@matchgame.awayTeam.goals","@matchgame.season","@matchgame.date"
+"@matchgame.homeTeam.name","@matchgame.homeTeam.goals","@matchgame.awayTeam.name","@matchgame.awayTeam.goals","@matchgame.season","matchgame.date"
 }

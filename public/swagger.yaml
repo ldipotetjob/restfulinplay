@@ -1,0 +1,85 @@
+openapi: "3.0.0"
+info:
+    title: Football Api League
+    description: Example of how implement a complete restfull lifeCycle
+    termsOfService: http://example.com/terms/
+    contact:
+      name: API Team
+      url: https://mojitoverdeintw.blogspot.com
+      email: ldipotet.job@gmail.com
+    license:
+      name: MIT
+      url: https://www.apache.org/licenses/LICENSE-2.0.html
+    version: 1.0.0
+servers:
+  - url: http://localhost:9000/apirest
+paths:
+    /premier/matchs:
+      get:
+        summary: "Return all fotball matchs from the beginning"
+        operationId: "getMatchGame"
+        tags:
+          - "premier"
+        responses:
+          '200':
+            description: "successful operation"
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/Matchs"
+          '400':
+            description: "Bad Request"
+          '403':
+            description: "Forbidden"
+          '406':
+            description: "Not Acceptable Status Value"
+          '500':
+            description: "Internal Server Error"
+security:
+- oAuthSample: [write_pets]
+
+components:
+  schemas:
+    Matchs:
+      type: array
+      items:
+        $ref: "#/components/schemas/Match"
+    Match:
+      type: object
+      properties:
+        hometeam:
+          $ref: "#/components/schemas/TemplateTeam"
+        awayteam:
+          $ref: "#/components/schemas/TemplateTeam"
+        date:
+          type: string
+          format: date-time
+        season:
+          type: string
+    TemplateTeam:
+      type: object
+      properties:
+        name:
+          type: string
+        goals:
+          type: integer
+          format: int32
+        goalsPlayer:
+          $ref: "#/components/schemas/GoalsPlayer"
+    GoalsPlayer:
+      type: object
+      additionalProperties:
+        $ref: "#/components/schemas/Minutes_Goals"
+    Minutes_Goals:
+      type: array
+      items:
+        type: string
+  securitySchemes:
+      oAuthSample: # <---- arbitrary name
+        type: oauth2
+        description: This API uses OAuth 2 with the implicit grant flow. [More info](https://api.example.com/docs/auth)
+        flows:
+          clientCredentials:   # <---- OAuth flow(authorizationCode, implicit, password or clientCredentials)
+            tokenUrl: http://localhost:9000/apirest/oauth/access_token
+            scopes:
+              read_matchs: read match with your account

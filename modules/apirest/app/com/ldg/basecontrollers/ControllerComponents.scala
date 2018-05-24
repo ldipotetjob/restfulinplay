@@ -47,7 +47,7 @@ sealed trait ControllerComponents {
     */
 
   class DefaultActionBuilder extends ActionBuilder[Request] {
-    def invokeBlock[A](request: Request[A], block: (Request[A]) => Future[Result]) = {
+    def invokeBlock[A](request: Request[A], block: (Request[A]) => Future[Result]):Future[Result] = {
 
       //request.contentType match {
       request.contentType.fold{Some("text/plain")}{content=>Some(content)} match {
