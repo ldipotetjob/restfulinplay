@@ -6,7 +6,7 @@ package com.ldg.basecontrollers
 
 import play.api.libs.json._
 import play.api.mvc._
-
+import scala.concurrent._
 import scala.reflect.ClassTag
 
 //TODO: Internationalization of messages
@@ -32,12 +32,12 @@ trait ContentNegotiation {
   self : Controller =>
 
   //Serializes the provided value according to the Accept headers of the (implicitly) provided request
-  def proccessContentNegotiation[C<:com.ldg.model.Parseable](content: Seq[C])(implicit request: Request[AnyContent],tag: ClassTag[C], writeable: Writes[C]): Result = {
+  def proccessContentNegotiation[C<:com.ldg.model.Parseable](content: Seq[C])(implicit request: Request[AnyContent],tag: ClassTag[C], writeable: Writes[C]): Future[Result] = {
      val AcceptsCSV = Accepting("text/csv")
-    render {
-      case Accepts.Json() => Ok(Json.obj("status" ->"OK", "message" -> Json.toJson(content) )).withHeaders(CONTENT_TYPE->JSON)
-      case AcceptsCSV() => Ok( selecTemplate[C](content)).withHeaders(CONTENT_TYPE->"text/csv")
-      case _ => NotAcceptable("Accept value can not be served, only serve text/csv or application/json")
+    render.async {
+      case Accepts.Json() => Future.successful(Ok(Json.obj("status" ->"OK", "message" -> Json.toJson(content) )).withHeaders(CONTENT_TYPE->JSON))
+      case AcceptsCSV() => Future.successful(Ok( selecTemplate[C](content)).withHeaders(CONTENT_TYPE->"text/csv"))
+      case _ => Future.successful(NotAcceptable("Accept value can not be served, only serve text/csv or application/json"))
     }
   }
 
