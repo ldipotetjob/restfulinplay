@@ -6,24 +6,71 @@ package controllers
 
 import javax.inject._
 
-import com.ldg.basecontrollers.{BaseController, ContentNegotiation, DefaultControllerComponents}
-import com.ldg.implicitconversions.ImplicitConversions._
-import com.ldg.implicitconversions.MyOwnConversions._
-import com.ldg.implicitconversions._
-import com.ldg.model._
-import com.ldg.security.ApiDataHandler
 import play.api.libs.json._
 import play.api.mvc._
-import services.TDataServices
 
 import scala.concurrent.ExecutionContext.Implicits.global
+import com.ldg.basecontrollers.{BaseController, ContentNegotiation, DefaultControllerComponents}
+import com.ldg.implicitconversions._
+import com.ldg.implicitconversions.MyOwnConversions._
+import com.ldg.implicitconversions.ImplicitConversions._
+import com.ldg.model._
+import com.ldg.security.ApiDataHandler
+import services.TDataServices
 import scala.concurrent._
 import scalaoauth2.provider._
 
 @Singleton
-class PremierleagueController @Inject()(action: DefaultControllerComponents, services: TDataServices)
+class PremierleagueControllerWithoAuth2 @Inject()(action: DefaultControllerComponents, services: TDataServices)
   extends BaseController
-  with ContentNegotiation {
+  with ContentNegotiation
+  with OAuth2Provider{
+
+  /*************************LifeCycle*******************************
+
+     +--------+                               +---------------+
+     |        |--(A)- Authorization Request ->|   Resource    |
+     |        |                               |     Owner     |
+     |        |<-(B)-- Authorization Grant ---|               |
+     |        |                               +---------------+
+     |        |
+     |        |                               +---------------+
+     |        |--(C)-- Authorization Grant -->| Authorization |
+     | Client |                               |     Server    |
+     |        |<-(D)----- Access Token -------|               |
+     |        |                               +---------------+
+     |        |
+     |        |                               +---------------+
+     |        |--(E)----- Access Token ------>|    Resource   |
+     |        |                               |     Server    |
+     |        |<-(F)--- Protected Resource ---|               |
+     +--------+                               +---------------+
+
+    ******************************************************************/
+
+  /********************** EndPoint explanations ***************************
+
+   The authorization process utilizes two authorization server endpoints
+   (HTTP resources):
+
+   o  Authorization endpoint - used by the client to obtain
+      authorization from the resource owner via user-agent redirection.
+
+   o  Token endpoint - used by the client to exchange an authorization
+      grant for an access token, typically with client authentication.
+
+   As well as one client endpoint:
+
+   o  Redirection endpoint - used by the authorization server to return
+      responses containing authorization credentials to the client via
+      the resource owner user-agent.
+
+
+   Not every authorization grant type utilizes both endpoints.
+   Extension grant types MAY define additional endpoints as needed.!
+
+    *************************************************************************/
+
 
   /**
     * for test this POST request
@@ -43,6 +90,7 @@ class PremierleagueController @Inject()(action: DefaultControllerComponents, ser
     * @return specific Result when every things is Ok so we send the status and the comment with the specific
     *         json that show the result
     */
+
 
     def insertMatchWithCustomized = action.jsonActionBuilder{ implicit request =>
     val matchGame: Match = request.body.asJson.get.as[Match]
@@ -78,8 +126,11 @@ class PremierleagueController @Inject()(action: DefaultControllerComponents, ser
     */
 
   def getMatchGame = action.defaultActionBuilder.async { implicit request =>
+    authorize(new ApiDataHandler()) { authInfo =>
       val dataResults: Seq[Match] = services.modelOfMatchPremier("football.txt")
+      //Future.successful(proccessContentNegotiation[Match](dataResults))
       proccessContentNegotiation[Match](dataResults)
+    }
   }
 
   def myAction = Action.async { implicit req =>
@@ -90,6 +141,14 @@ class PremierleagueController @Inject()(action: DefaultControllerComponents, ser
     }
   }
 
+/*
+  def savePlaceConcise1 = Action.async(validateJson[Place]) { request =>
+    authorize(new ApiDataHandler()) { authInfo =>
+      val place = request.body
+      Future.successful(new Status(200)(Json.obj("status" -> "OK", "message" -> ("Place '" + place.name + "' saved."))))
+    }
+  }
+*/
   /**
     * The simplest way for process a request, in this case we call a default action builder
     * and process inside the action converting a body in a json, if something goes wrong we have
@@ -130,4 +189,18 @@ class PremierleagueController @Inject()(action: DefaultControllerComponents, ser
     val place = request.body
     new Status(200)(Json.obj("status" ->"OK", "message" -> ("Place '"+place.name+"' saved.") ))
   }
+
+  override val tokenEndpoint = new TokenEndpoint {
+    override val handlers = Map(
+      OAuthGrantType.AUTHORIZATION_CODE -> new AuthorizationCode(),
+      OAuthGrantType.REFRESH_TOKEN -> new RefreshToken(),
+      OAuthGrantType.CLIENT_CREDENTIALS -> new ClientCredentials(),
+      OAuthGrantType.PASSWORD -> new Password()
+    )
+  }
+
+  def accessToken = Action.async { implicit request =>
+    issueAccessToken(new ApiDataHandler())
+  }
+
 }
