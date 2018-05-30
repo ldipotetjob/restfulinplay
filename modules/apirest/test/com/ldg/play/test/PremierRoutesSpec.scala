@@ -1,15 +1,16 @@
 package com.ldg.play.test
 
-import akka.stream.Materializer
+
 import apirest.Routes
-import org.scalatest.{FlatSpec, Matchers}
+import com.ldg.play.baseclass.UnitSpec
+import services.{MockTDataServices, TDataServices}
+
 import play.api.inject.bind
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.api.inject.guice.GuiceApplicationBuilder
-import services.{MockTDataServices, TDataServices}
 
-class PremierRoutesSpec extends FlatSpec with Matchers {
+class PremierRoutesSpec extends UnitSpec {
 
   val app = new GuiceApplicationBuilder()
     .overrides(bind[TDataServices].to[MockTDataServices])

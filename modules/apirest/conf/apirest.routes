@@ -15,7 +15,7 @@ GET     /                           controllers.HomeController.indexModifiyingBo
 #example: http://localhost:9000/apirest/count
 GET     /count                      controllers.CountController.count
 
-POST    /oauth/access_token         controllers.PremierleagueController.accessToken
+POST    /oauth/access_token         controllers.PremierleagueControllerWithoAuth2.accessToken
 
 
 # An example controller showing how to write asynchronous code

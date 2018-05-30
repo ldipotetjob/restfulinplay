@@ -1,25 +1,19 @@
 package com.ldg.play.test
 
-
-
 import akka.stream.Materializer
-import org.scalatest.{FlatSpec, Matchers}
-import play.api.test.FakeRequest
-import play.api.libs.json._
-import play.api.test.Helpers._
-
-import scala.io.Source
 import com.ldg.basecontrollers.{BaseController, DefaultActionBuilder, JsonActionBuilder}
 import com.ldg.implicitconversions.ImplicitConversions.matchReads
 import com.ldg.model.Match
-import org.scalatest.mock.MockitoSugar
+import com.ldg.play.baseclass.UnitSpec
+import play.api.test.FakeRequest
+import play.api.libs.json._
+import play.api.test.Helpers._
 import play.api.http.Status.OK
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.Results.Status
+import scala.io.Source
 
-
-
-class PremierActionsSpec extends FlatSpec with Matchers  with MockitoSugar{
+class PremierActionsSpec extends UnitSpec {
 
   val jsonActionBuilder = new JsonActionBuilder()
   val defaultActionBuilder = new DefaultActionBuilder()
