@@ -21,7 +21,7 @@ import scala.concurrent._
 import scalaoauth2.provider._
 
 @Singleton
-class PremierleagueControllerWithoAuth2 @Inject()(action: DefaultControllerComponents, services: TDataServices)
+class FootballleagueControllerWithoAuth2 @Inject()(action: DefaultControllerComponents, services: TDataServices)
   extends BaseController
   with ContentNegotiation
   with OAuth2Provider{
@@ -74,11 +74,11 @@ class PremierleagueControllerWithoAuth2 @Inject()(action: DefaultControllerCompo
 
   /**
     * for test this POST request
-    * curl -d '{"date" : "1495502158120","season" : "MW 26","homeTeam" :{"name" : "Aston Villa","goals" : 3,"goalsPlayer" : {"Dean Saunders": ["44''", "66''"],"Garry Parker": ["78''"]}},"awayTeam" : {"name" : "Liverpool","goals" : 3,"goalsPlayer" : {"Mark Walters": ["43''"],"Ronnie Rosenthal": ["84''"],"John Williams": ["90''"]}}}'  -H "Content-Type: application/json" http://localhost:9000/apirest/premier/match;echo
+    * curl -d '{"date" : "1495502158120","season" : "MW 26","homeTeam" :{"name" : "Aston Villa","goals" : 3,"goalsPlayer" : {"Dean Saunders": ["44''", "66''"],"Garry Parker": ["78''"]}},"awayTeam" : {"name" : "Liverpool","goals" : 3,"goalsPlayer" : {"Mark Walters": ["43''"],"Ronnie Rosenthal": ["84''"],"John Williams": ["90''"]}}}'  -H "Content-Type: application/json" http://localhost:9000/apirest/football/match;echo
     *
     * other solution more elegant is put the json in a file and type de following command in your terminal:
     *
-    * curl -d "@myJasonFile.json"  -H "Content-Type: application/json" http://localhost:9000/apirest/premier/match ; echo
+    * curl -d "@myJasonFile.json"  -H "Content-Type: application/json" http://localhost:9000/apirest/football/match ; echo
     *
     */
 
@@ -100,7 +100,7 @@ class PremierleagueControllerWithoAuth2 @Inject()(action: DefaultControllerCompo
   /**
     *
     * for test this action
-    * curl -d '{"date" : "1495502158120","season" : "MW 26","homeTeam" :{"name" : "Aston Villa","goals" : 3,"goalsPlayer" : {"Dean Saunders": ["44''", "66''"],"Garry Parker": ["78''"]}},"awayTeam" : {"name" : "Liverpool","goals" : 3,"goalsPlayer" : {"Mark Walters": ["43''"],"Ronnie Rosenthal": ["84''"],"John Williams": ["90''"]}}}'  -H "Content-Type: application/json" http://localhost:9000/apirest/premier/matchgame;echo
+    * curl -d '{"date" : "1495502158120","season" : "MW 26","homeTeam" :{"name" : "Aston Villa","goals" : 3,"goalsPlayer" : {"Dean Saunders": ["44''", "66''"],"Garry Parker": ["78''"]}},"awayTeam" : {"name" : "Liverpool","goals" : 3,"goalsPlayer" : {"Mark Walters": ["43''"],"Ronnie Rosenthal": ["84''"],"John Williams": ["90''"]}}}'  -H "Content-Type: application/json" http://localhost:9000/apirest/football/matchgame;echo
     *
     */
   /**
@@ -119,15 +119,15 @@ class PremierleagueControllerWithoAuth2 @Inject()(action: DefaultControllerCompo
     *
     * for testing GET request:
     *
-    * curl -H "Accept: application/json" -H "Content-Type: text/plain" http://localhost:9000/apirest/premier/matchs ; echo
+    * curl -H "Accept: application/json" -H "Content-Type: text/plain" http://localhost:9000/apirest/football/matchs ; echo
     *
-    * curl -H "Accept: text/csv" -H "Content-Type: text/plain" http://localhost:9000/apirest/premier/matchs ; echo
+    * curl -H "Accept: text/csv" -H "Content-Type: text/plain" http://localhost:9000/apirest/football/matchs ; echo
     *
     */
 
   def getMatchGame = action.defaultActionBuilder.async { implicit request =>
     authorize(new ApiDataHandler()) { authInfo =>
-      val dataResults: Seq[Match] = services.modelOfMatchPremier("football.txt")
+      val dataResults: Seq[Match] = services.modelOfMatchFootball("football.txt")
       //Future.successful(proccessContentNegotiation[Match](dataResults))
       proccessContentNegotiation[Match](dataResults)
     }

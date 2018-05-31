@@ -9,7 +9,7 @@ import com.ldg.model.TestMatchObject._
 import com.ldg.implicitconversions.ImplicitConversions._
 import com.ldg.model.Match
 import com.ldg.play.baseclass.UnitSpec
-import controllers.PremierleagueController
+import controllers.FootballLeagueController
 import org.mockito.Mockito._
 import org.scalatest.mock.MockitoSugar
 import play.api.test.FakeRequest
@@ -18,7 +18,7 @@ import play.api.i18n._
 import services.TDataServices
 
 
-class PremierControllerSpec extends UnitSpec with MockitoSugar {
+class FootballControllerSpec extends UnitSpec with MockitoSugar {
 
   val mockDataServices = mock[TDataServices]
   val mockDefaultControllerComponents = mock[DefaultControllerComponents]
@@ -31,7 +31,7 @@ class PremierControllerSpec extends UnitSpec with MockitoSugar {
   }
 
   val TestDefaultControllerComponents: DefaultControllerComponents = DefaultControllerComponents(mockDefaultActionBuilder,mockActionBuilder,/*messagesApi,*/langs)
-  val TestPremierleagueController = new PremierleagueController(TestDefaultControllerComponents,mockDataServices)
+  val TestFootballleagueController = new FootballLeagueController(TestDefaultControllerComponents,mockDataServices)
 
   /**
     *
@@ -44,10 +44,10 @@ class PremierControllerSpec extends UnitSpec with MockitoSugar {
   "Request /GET/ with Content-Type:text/plain and application/json" should
     "return a json file Response with a 200 Code" in {
 
-      when(mockDataServices.modelOfMatchPremier("football.txt")) thenReturn Seq(matchGame)
-      val request = FakeRequest(GET, "/premier/matchs")
+      when(mockDataServices.modelOfMatchFootball("football.txt")) thenReturn Seq(matchGame)
+      val request = FakeRequest(GET, "/football/matchs")
         .withHeaders(("Accept","application/json"),("Content-Type","text/plain"))
-      val result = TestPremierleagueController.getMatchGame(request)
+      val result = TestFootballleagueController.getMatchGame(request)
       val resultMatchGame: Match = (contentAsJson(result) \ "message" \ 0).as[Match]
       status(result) shouldBe OK
       resultMatchGame.homeTeam.name should equal(matchGame.homeTeam.name)
@@ -65,10 +65,10 @@ class PremierControllerSpec extends UnitSpec with MockitoSugar {
     */
 
   "Request /GET/ with Content-Type:text/plain and txt/csv" should "return a csv file Response with a 200 Code" in {
-    when(mockDataServices.modelOfMatchPremier("football.txt")) thenReturn Seq(matchGame)
-    val request = FakeRequest(GET, "/premier/matchs").withHeaders(("Accept","text/csv"),("Content-Type","text/plain"))
-    val result = TestPremierleagueController.getMatchGame(request)
-    val content = views.csv.premier(Seq(matchGame))
+    when(mockDataServices.modelOfMatchFootball("football.txt")) thenReturn Seq(matchGame)
+    val request = FakeRequest(GET, "/football/matchs").withHeaders(("Accept","text/csv"),("Content-Type","text/plain"))
+    val result = TestFootballleagueController.getMatchGame(request)
+    val content = views.csv.football(Seq(matchGame))
     val templateContent: String = contentAsString(content)
     val resultContent: String = contentAsString(result)
     status(result) shouldBe OK
@@ -77,7 +77,7 @@ class PremierControllerSpec extends UnitSpec with MockitoSugar {
 
   "Request /GET with Content-Type:text/plain and WRONG Accept: image/jpeg" should
     "return a json file Response with a 406 Code" in {
-    val result = TestPremierleagueController.getMatchGame
+    val result = TestFootballleagueController.getMatchGame
       .apply(FakeRequest(GET, "/").withHeaders(("Accept","image/jpeg"),("Content-Type","text/plain")))
     status(result) shouldBe NOT_ACCEPTABLE
   }

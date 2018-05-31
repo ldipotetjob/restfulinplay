@@ -37,7 +37,7 @@ class DataServices extends TDataServices {
     * @param file
     * @return
     */
-  def jsonbjectOfMatchPremier(file: String): Seq[JsObject] = {
+  def jsonbjectOfMatchFootball(file: String): Seq[JsObject] = {
 
     val linesOfCvsMatch = calclinesOfCvsMatch(file)
     linesOfCvsMatch.map(
@@ -59,7 +59,7 @@ class DataServices extends TDataServices {
     )
   }
   /** Service that when is call return a seq of Match game Model*/
-  def modelOfMatchPremier(file: String="football.txt"): Seq[Match] = {
+  def modelOfMatchFootball(file: String="football.txt"): Seq[Match] = {
     val linesOfCvsMatch = calclinesOfCvsMatch(file)
     linesOfCvsMatch.map(
       csvlines => {
