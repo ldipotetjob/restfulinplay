@@ -14,12 +14,12 @@ info:
 servers:
   - url: http://localhost:9000/apirest
 paths:
-    /premier/matchs:
+    /football/matchs:
       get:
         summary: "Return all fotball matchs from the beginning"
         operationId: "getMatchGame"
         tags:
-          - "premier"
+          - "football"
         responses:
           '200':
             description: "successful operation"
@@ -30,7 +30,7 @@ paths:
             schema:
             type: "array"
             items:
-              $ref: "#/definitions/Premier"
+              $ref: "#/definitions/football"
           '400':
             description: "Bad Request"
           '403':

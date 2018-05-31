@@ -4,10 +4,10 @@ package controller
                                comments at routes files: root_project/modules/apirest/conf/apirest.routes
 === class CountController ===> idem. at explanation of AsyncController
 === class HomeController ===> idem. at explanation of AsyncController
-=== class PremierleagueController ===> Explained every action in comments at routes
+=== class FootballLeagueController ===> Explained every action in comments at routes
                                        files: root_project/modules/apirest/conf/apirest.routes
 
-    class PremierleagueController ===>
+    class FootballLeagueController ===>
 
         @Inject()(action: DefaultControllerComponents,services:TDataServices) ===>
 

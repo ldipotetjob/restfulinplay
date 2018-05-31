@@ -74,7 +74,7 @@ trait ContentNegotiation {
       /**
         * This match can NOT be generic. For every kind of model we need an specific template.
         * So you should have so many "Templates" and so many "Case" as report as you need.
-        * Now we have only views.csv.premier In real case you can have as many template as you need.
+        * Now we have only views.csv.football In real case you can have as many template as you need.
         *
         */
 
@@ -82,10 +82,10 @@ trait ContentNegotiation {
 
         val matchseq:Seq[com.ldg.model.Match] = genericSeq.asInstanceOf[Seq[com.ldg.model.Match]]
 
-        views.csv.premier(matchseq)
+        views.csv.football(matchseq)
 
       }
-      case _ => views.csv.premier(Seq[com.ldg.model.Match]())
+      case _ => views.csv.football(Seq[com.ldg.model.Match]())
     }
   }
 

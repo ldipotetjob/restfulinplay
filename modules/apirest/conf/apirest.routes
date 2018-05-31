@@ -15,7 +15,7 @@ GET     /                           controllers.HomeController.indexModifiyingBo
 #example: http://localhost:9000/apirest/count
 GET     /count                      controllers.CountController.count
 
-POST    /oauth/access_token         controllers.PremierleagueControllerWithoAuth2.accessToken
+POST    /oauth/access_token         controllers.FootballleagueControllerWithoAuth2.accessToken
 
 
 # An example controller showing how to write asynchronous code
@@ -33,10 +33,10 @@ GET   /cmessage/:msg                controllers.AsyncController.custommessage(ms
 # An example Controller showing how create an Action from an ActionBuilder and how
 # implement of content-negotiation in playframework with its own request validations
 
-# pattern: curl -H "Accept: application/json" -H "Content-Type: text/plain" scheme:[//[user[:password]@]host[:port]]/apirest/premier/matchs =>
-# example: curl -H "Accept: application/json" -H "Content-Type: text/plain" http://localhost:9000/apirest/premier/matchs ; echo
-# example: curl -H "Accept: text/csv" -H "Content-Type: text/plain" http://localhost:9000/apirest/premier/matchs ; echo
-GET      /premier/matchs            controllers.PremierleagueController.getMatchGame
+# pattern: curl -H "Accept: application/json" -H "Content-Type: text/plain" scheme:[//[user[:password]@]host[:port]]/apirest/football/matchs =>
+# example: curl -H "Accept: application/json" -H "Content-Type: text/plain" http://localhost:9000/apirest/football/matchs ; echo
+# example: curl -H "Accept: text/csv" -H "Content-Type: text/plain" http://localhost:9000/apirest/football/matchs ; echo
+GET      /football/matchs            controllers.FootballLeagueController.getMatchGame
 
 GET     /assets/*file            controllers.Assets.versioned(path="/public", file: Asset)
 
@@ -45,22 +45,22 @@ GET     /assets/*file            controllers.Assets.versioned(path="/public", fi
 
 # pattern: curl -d 'json_file'  -H "Content-Type: application/json" scheme:[//[user[:password]@]host[:port]]/apirest/newsaveplace =>
 # example: curl -d '{"name":"Nuthanger Farm","location":{"lat" : 51.244031,"long" : -1.263224},"residents" : [{"name" : "Fiver","age" : 4,"role" : null},{"name" : "Bigwig","age" : 6, "role" : "Owsla"}]}'  -H "Content-Type: application/json" http://localhost:9000/apirest/newsaveplace;echo
-POST     /newsaveplace              controllers.PremierleagueController.savePlaceConcise
+POST     /newsaveplace              controllers.FootballLeagueController.savePlaceConcise
 
 
 # An example showing how create an Action from an ActionBuilder.This ActionBuilder can validate
 # any modeled data (Read[T] in which T is the kind of modeled Data). This architecture
 # let you customize the requests validation of any body request and process playframework Content-Negotiation.
 
-# pattern: curl -d 'json_file' -H "Content-Type: application/json" scheme:[//[user[:password]@]host[:port]]/apirest/premier/matchgame
-# example: curl -d '{"date" : "1495502158120","season" : "MW 26","homeTeam" :{"name" : "Aston Villa","goals" : 3,"goalsPlayer" : {"Dean Saunders": ["44''", "66''"],"Garry Parker": ["78''"]}},"awayTeam" : {"name" : "Liverpool","goals" : 3,"goalsPlayer" : {"Mark Walters": ["43''"],"Ronnie Rosenthal": ["84''"],"John Williams": ["90''"]}}}'  -H "Content-Type: application/json" http://localhost:9000/apirest/premier/matchgame;echo
-POST     /premier/matchgame             controllers.PremierleagueController.insertMatchGeneric
+# pattern: curl -d 'json_file' -H "Content-Type: application/json" scheme:[//[user[:password]@]host[:port]]/apirest/football/matchgame
+# example: curl -d '{"date" : "1495502158120","season" : "MW 26","homeTeam" :{"name" : "Aston Villa","goals" : 3,"goalsPlayer" : {"Dean Saunders": ["44''", "66''"],"Garry Parker": ["78''"]}},"awayTeam" : {"name" : "Liverpool","goals" : 3,"goalsPlayer" : {"Mark Walters": ["43''"],"Ronnie Rosenthal": ["84''"],"John Williams": ["90''"]}}}'  -H "Content-Type: application/json" http://localhost:9000/apirest/football/matchgame;echo
+POST     /football/matchgame             controllers.FootballLeagueController.insertMatchGeneric
 
 
 # An example showing how create an Action from an ActionBuilder.This ActionBuilder can validate
 # specifics modeled data, only process the json bodies that the architecture let process. This architecture
 # let you the requests validation of the desired body request and process playframework Content-Negotiation.
 
-# pattern: curl -d 'json_file' -H "Content-Type: application/json" scheme:[//[user[:password]@]host[:port]]/apirest/premier/match
-# example: curl -d '{"date" : "1495502158120","season" : "MW 26","homeTeam" :{"name" : "Aston Villa","goals" : 3,"goalsPlayer" : {"Dean Saunders": ["44''", "66''"],"Garry Parker": ["78''"]}},"awayTeam" : {"name" : "Liverpool","goals" : 3,"goalsPlayer" : {"Mark Walters": ["43''"],"Ronnie Rosenthal": ["84''"],"John Williams": ["90''"]}}}'  -H "Content-Type: application/json" http://localhost:9000/apirest/premier/match;echo
-POST     /premier/match             controllers.PremierleagueController.insertMatchWithCustomized
+# pattern: curl -d 'json_file' -H "Content-Type: application/json" scheme:[//[user[:password]@]host[:port]]/apirest/football/match
+# example: curl -d '{"date" : "1495502158120","season" : "MW 26","homeTeam" :{"name" : "Aston Villa","goals" : 3,"goalsPlayer" : {"Dean Saunders": ["44''", "66''"],"Garry Parker": ["78''"]}},"awayTeam" : {"name" : "Liverpool","goals" : 3,"goalsPlayer" : {"Mark Walters": ["43''"],"Ronnie Rosenthal": ["84''"],"John Williams": ["90''"]}}}'  -H "Content-Type: application/json" http://localhost:9000/apirest/football/match;echo
+POST     /football/match             controllers.FootballLeagueController.insertMatchWithCustomized

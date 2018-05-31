@@ -13,7 +13,7 @@ import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.Results.Status
 import scala.io.Source
 
-class PremierActionsSpec extends UnitSpec {
+class FootballActionsSpec extends UnitSpec {
 
   val jsonActionBuilder = new JsonActionBuilder()
   val defaultActionBuilder = new DefaultActionBuilder()
@@ -45,7 +45,6 @@ class PremierActionsSpec extends UnitSpec {
     def action = jsonActionBuilder{ implicit request =>
       new Status(OK)
     }
-
     val result = call(action, request)
     status(result) shouldBe OK
   }
@@ -139,5 +138,3 @@ class PremierActionsSpec extends UnitSpec {
   }
 
 }
-
-
