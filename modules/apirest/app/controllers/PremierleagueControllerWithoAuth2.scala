@@ -127,7 +127,7 @@ class PremierleagueControllerWithoAuth2 @Inject()(action: DefaultControllerCompo
 
   def getMatchGame = action.defaultActionBuilder.async { implicit request =>
     authorize(new ApiDataHandler()) { authInfo =>
-      val dataResults: Seq[Match] = services.modelOfMatchPremier("football.txt")
+      val dataResults: Seq[Match] = services.modelOfMatchFootball("football.txt")
       //Future.successful(proccessContentNegotiation[Match](dataResults))
       proccessContentNegotiation[Match](dataResults)
     }
