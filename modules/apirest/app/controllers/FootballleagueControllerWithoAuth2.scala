@@ -199,8 +199,26 @@ class FootballleagueControllerWithoAuth2 @Inject()(action: DefaultControllerComp
     )
   }
 
+  def accessToke1n = Action.async { implicit request =>
+    issueAccessToken(new ApiDataHandler())
+  }
+
+
   def accessToken = Action.async { implicit request =>
     issueAccessToken(new ApiDataHandler())
   }
+
+  case class Stock(symbol:String,price:Double)
+
+  implicit val awayTeamFormat: Format[Stock] = Json.format[Stock]
+
+  def saveStock = Action { request =>
+    val json = request.body.asJson.get
+    val stock = json.as[Stock]
+    println(stock)
+    Ok
+  }
+
+
 
 }
