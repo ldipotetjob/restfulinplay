@@ -17,6 +17,7 @@ GET     /count                      controllers.CountController.count
 
 POST    /oauth/access_token         controllers.FootballleagueControllerWithoAuth2.accessToken
 
+POST   /oauth/saveStock     controllers.FootballleagueControllerWithoAuth2.saveStock
 
 # An example controller showing how to write asynchronous code
 
@@ -37,6 +38,10 @@ GET   /cmessage/:msg                controllers.AsyncController.custommessage(ms
 # example: curl -H "Accept: application/json" -H "Content-Type: text/plain" http://localhost:9000/apirest/football/matchs ; echo
 # example: curl -H "Accept: text/csv" -H "Content-Type: text/plain" http://localhost:9000/apirest/football/matchs ; echo
 GET      /football/matchs            controllers.FootballLeagueController.getMatchGame
+
+
+
+# GET      /football/matchs            controllers.FootballleagueControllerWithoAuth2.getMatchGame
 
 GET     /assets/*file            controllers.Assets.versioned(path="/public", file: Asset)
 
