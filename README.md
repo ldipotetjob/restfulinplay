@@ -42,7 +42,7 @@ This project is a proof of concept about the basic architecture of a Play Framew
 
 * clone repository
 * go to root project
-* type in terminal: sbt run
+* type in terminal: sbt -Dconfig.resource=development.conf run
 
 video: [running sbt](https://youtu.be/AWP7ODqjYmI)
 
@@ -59,6 +59,7 @@ The commented examples has the following structure:
 
 You can paste the \# example: in your **terminal** in case of **curl** o in your **browser** in case **http**
 
+And access to swagger link of our services: http://**localhost**:**9000**/apirest/assets/dist/index.html you can change dns name and port number in your application.conf for your specific environment. 
 
 ### Testing ###
 
